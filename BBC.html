@@ -124,7 +124,7 @@
             flex: 1; /* Sidebar area */
             background: #fff;
             padding: 20px;
-            border -radius: 10px;
+            border-radius: 10px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
         .regiment-container {
@@ -189,10 +189,6 @@
         .article-form button:hover {
             background: #900000;
         }
-        .password-form {
-            margin-top: 20px;
-            display: none; /* Initially hidden */
-        }
     </style>
 </head>
 <body>
@@ -204,30 +200,17 @@
     
     <nav>
         <ul>
-            <li class="home-tab">Home</li>
-            <li class="article-tab">Articles</li>
+            <li id="home-tab">Home</li>
+            <li id="article-tab">Articles</li>
             <li id="regiment-tab">Regiments</li>
         </ul>
     </nav>
 
     <div class="main-container">
-        <div class="content">
+        <div class="content" id="content">
             <div class="intro-text">
                 <h3>🇬🇧💂——— 𝙱𝚛𝚒𝚝𝚒𝚜𝚑  𝙼𝚒𝚕𝚒𝚝𝚊𝚛𝚢 𝚁𝚎𝚐𝚒𝚖𝚎𝚗𝚝𝚜 💂🇬🇧</h3>
                 <p>Explore the various regiments of the British military, each with its unique history and role.</p>
-            </div>
-
-            <div class="password-form">
-                <h2>Enter Password to Manage Articles</h2>
-                <input type="password" id="password-input" placeholder="Enter Password">
-                <button onclick="checkPassword()">Submit</button>
-            </div>
-
-            <div class="article-form" id="article-form" style="display:none;">
-                <h2>Write an Article</h2>
-                <input type="text" id="article-title" placeholder="Article Title" required>
-                <textarea id="article-content" rows="4" placeholder="Article Content" required></textarea>
-                <button onclick="submitArticle()">Submit Article</button>
             </div>
 
             <div class="article-preview-container" id="article-preview-container">
@@ -236,12 +219,12 @@
             </div>
         </div>
 
-        <div class="sidebar">
+        <div class="sidebar" id="sidebar" style="display: none;">
             <h2>Regiments</h2>
             <div class="regiment-container" id="regimentContainer">
                 <div class="regiment">
                     <a href="https://www.roblox.com/communities/33685230/The-Hous-hold-Cavalry" target="_blank">
-                        <img src="https://tr.rbxcdn.com/180DAY-51cb2888d98d2 a3a2d492762f033d33c/150/150/Image/Webp/noFilter" alt="Household Cavalry Logo">
+                        <img src="https://tr.rbxcdn.com/180DAY-51cb2888d98d2a3a2d492762f033d33c/150/150/Image/Webp/noFilter" alt="Household Cavalry Logo">
                         <h4>Household Cavalry</h4>
                     </a>
                     <p>The Household Cavalry is the oldest and most senior regiments of the British Army.</p>
@@ -276,7 +259,7 @@
                 </div>
                 <div class="regiment">
                     <a href="https://www.roblox.com/communities/33807009/BA-Royal-Grenadier-Guards" target="_blank">
-                        <img src="https://tr.rbxcdn.com/180DAY-0a83f740afd3199c3ee2feb699aea815/150/150/Image/Webp/noFilter" alt="Royal Grenadier Guards Logo">
+                        <img src="https://tr.rbxcdn.com/180DAY-0a83f740afd3199c3ee2feb699aea815/150/150/Image/Webp/noFilter" alt=" Royal Grenadier Guards Logo">
                         <h4>Royal Grenadier Guards</h4>
                     </a>
                     <p>One of the oldest regiments, known for its ceremonial duties and combat readiness.</p>
@@ -299,20 +282,37 @@
     <script>
         let articles = [];
 
-        function checkPassword() {
-            const password = document.getElementById('password-input').value;
-            if (password === "BBC") {
-                document.querySelector('.password-form').style.display = 'none';
-                document.getElementById('article-form').style.display = 'block';
-                displayArticles();
-            } else {
-                alert("Incorrect password. Please try again.");
-            }
-        }
+        document.getElementById('home-tab').addEventListener('click', function() {
+            document.getElementById('content').style.display = 'block';
+            document.getElementById('sidebar').style.display = 'none';
+            displayArticles();
+        });
+
+        document.getElementById('article-tab').addEventListener('click', function() {
+            document.getElementById('content').style.display = 'block';
+            document.getElementById('sidebar').style.display = 'none';
+            document.querySelector('.article-preview-container').innerHTML = `
+                <h2>Write an Article</h2>
+                <div class="article-form">
+                    <input type="text" id="article-title" placeholder="Article Title" required>
+                    <textarea id="article-content" rows="4" placeholder="Article Content" required></textarea>
+                    <button onclick="submitArticle()">Submit Article</button>
+                </div>
+                <div class="article-preview-container" id="article-preview-container">
+                    <h2>Articles</h2>
+                    <div class="no-articles">No articles available.</div>
+                </div>
+            `;
+        });
+
+        document.getElementById('regiment-tab').addEventListener('click', function() {
+            document.getElementById('content').style.display = 'none';
+            document.getElementById('sidebar').style.display = 'block';
+        });
 
         function submitArticle() {
             const title = document.getElementById('article-title').value;
-            const content = document.getElement .getElementById('article-content').value;
+            const content = document.getElementById('article-content').value;
 
             if (!title || !content) {
                 alert("Please fill in both title and content.");
