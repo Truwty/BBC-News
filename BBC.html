@@ -13,7 +13,6 @@
             padding: 0;
             background-color: #f4f4f4;
             color: #333;
-            text-align: center;
         }
         header {
             background-color: #b80000;
@@ -54,78 +53,97 @@
             color: white;
             border-radius: 5px;
         }
+
         .main-container {
             padding: 50px 20px;
         }
+
+        /* Regiments Section */
         .regiments-container {
-            display: none;
-            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
             gap: 20px;
             justify-items: center;
             padding: 20px;
             background-color: #ffffff;
             border-radius: 10px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            opacity: 0;
-            transition: opacity 0.5s ease-in-out;
         }
+
         .regiment-card {
-            width: 150px;
-            height: 150px;
+            width: 200px;
+            height: 200px;
             cursor: pointer;
             border-radius: 10px;
             overflow: hidden;
             background-color: #fff;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
         }
+
         .regiment-card img {
             width: 100%;
             height: 100%;
             object-fit: cover;
+            transition: transform 0.3s ease;
         }
-        .regiment-card:hover {
+
+        .regiment-card:hover img {
             transform: scale(1.1);
+        }
+
+        .regiment-card:hover {
+            transform: scale(1.05);
             box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
         }
+
+        .regiment-card:after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.3);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .regiment-card:hover:after {
+            opacity: 1;
+        }
+
+        .regiment-card h4 {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            font-size: 18px;
+            color: white;
+            font-weight: bold;
+        }
+
+        /* Details section when clicked */
         .regiment-details {
-            display: none;
             padding: 20px;
             text-align: left;
             margin-top: 30px;
             background: #f9f9f9;
             border-radius: 10px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-            opacity: 0;
-            transition: opacity 0.5s ease-in-out;
+            display: none;
         }
-        .regiment-details img {
-            width: 150px;
-            height: 150px;
-            margin-bottom: 20px;
-        }
+        
         .regiment-details h4 {
             font-size: 24px;
             color: #b80000;
         }
+
         .regiment-details p {
             font-size: 18px;
             color: #333;
         }
-        .back-button {
-            background-color: #b80000;
-            color: white;
-            padding: 10px 20px;
-            text-decoration: none;
-            border-radius: 5px;
-            font-weight: bold;
-            cursor: pointer;
-            margin-top: 20px;
-            transition: background 0.3s;
-        }
-        .back-button:hover {
-            background-color: #900000;
-        }
+
     </style>
 </head>
 <body>
@@ -133,7 +151,7 @@
     <!-- Header -->
     <header>
         <img src="https://tr.rbxcdn.com/180DAY-520addbf4b5835f27c4a1f6fbf16fa3a/150/150/Image/Webp/noFilter" alt="BBC Logo">
-        Secret's BBC News
+        SBBC News Portal
     </header>
 
     <!-- Navigation -->
@@ -147,72 +165,62 @@
 
     <!-- Main Content -->
     <div class="main-container">
-        <!-- Regiments Section (Hidden initially) -->
+        <!-- Regiments Section -->
         <div class="regiments-container" id="regiments-container">
-            <div class="regiment-card" onclick="showRegimentDetails('household-cavalry')">
+            <!-- Household Cavalry -->
+            <div class="regiment-card" onclick="window.location='https://www.roblox.com/communities/33685230/The-Hous-hold-Cavalry'">
                 <img src="https://tr.rbxcdn.com/180DAY-51cb2888d98d2a3a2d492762f033d33c/150/150/Image/Webp/noFilter" alt="Household Cavalry">
+                <h4>Household Cavalry</h4>
             </div>
-            <div class="regiment-card" onclick="showRegimentDetails('first-infantry-forces')">
-                <img src="https://tr.rbxcdn.com/180DAY-fd5c69fc74ddcdac20730b8d49e0d57d/150/150/Image/Webp/noFilter" alt="First Infantry Forces">
-            </div>
-            <div class="regiment-card" onclick="showRegimentDetails('bbc-news')">
-                <img src="https://tr.rbxcdn.com/180DAY-520addbf4b5835f27c4a1f6fbf16fa3a/150/150/Image/Webp/noFilter" alt="BBC News">
-            </div>
-            <div class="regiment-card" onclick="showRegimentDetails('16th-air-assault-brigade')">
-                <img src="https://tr.rbxcdn.com/180DAY-32350b3cac8aa69358acdd26a3942f11/150/150/Image/Webp/noFilter" alt="16th Air Assault Brigade">
-            </div>
-            <div class="regiment-card" onclick="showRegimentDetails('united-kingdom-special-forces')">
-                <img src="https://tr.rbxcdn.com/180DAY-8570f657f95d58335fcea99946120981/150/150/Image/Webp/noFilter" alt="United Kingdom Special Forces">
-            </div>
-            <div class="regiment-card" onclick="showRegimentDetails('royal-grenadier-guards')">
-                <img src="https://tr.rbxcdn.com/180DAY-0a83f740afd3199c3ee2feb699aea815/150/150/Image/Webp/noFilter" alt="Royal Grenadier Guards">
-            </div>
-            <div class="regiment-card" onclick="showRegimentDetails('royal-military-police')">
-                <img src="https://tr.rbxcdn.com/180DAY-083d41f047c1a113fb70935c45b11c50/150/150/Image/Webp/noFilter" alt="Royal Military Police">
-            </div>
-        </div>
 
-        <!-- Regiment Details Section -->
-        <div class="regiment-details" id="regiment-details">
-            <img id="regiment-logo" src="" alt="Regiment Logo">
-            <h4 id="regiment-name"></h4>
-            <p id="regiment-description"></p>
-            <a href="" id="regiment-link" target="_blank">Visit Regiment Page</a>
-            <button class="back-button" onclick="backToRegiments()">Back to Regiments</button>
+            <!-- First Infantry Forces -->
+            <div class="regiment-card" onclick="window.location='https://www.roblox.com/communities/35354568/BA-lnfantry-Forces-Division'">
+                <img src="https://tr.rbxcdn.com/180DAY-fd5c69fc74ddcdac20730b8d49e0d57d/150/150/Image/Webp/noFilter" alt="First Infantry Forces">
+                <h4>First Infantry Forces</h4>
+            </div>
+
+            <!-- BBC News -->
+            <div class="regiment-card" onclick="window.location='https://www.roblox.com/communities/34414750/Th-British-Broadcasting-Corporation'">
+                <img src="https://tr.rbxcdn.com/180DAY-520addbf4b5835f27c4a1f6fbf16fa3a/150/150/Image/Webp/noFilter" alt="BBC News">
+                <h4>BBC News</h4>
+            </div>
+
+            <!-- 16th Air Assault Brigade -->
+            <div class="regiment-card" onclick="window.location='https://www.roblox.com/communities/33810709/BA-16th-Air-Assault-Brigade'">
+                <img src="https://tr.rbxcdn.com/180DAY-32350b3cac8aa69358acdd26a3942f11/150/150/Image/Webp/noFilter" alt="16th Air Assault Brigade">
+                <h4>16th Air Assault Brigade</h4>
+            </div>
+
+            <!-- United Kingdom Special Forces -->
+            <div class="regiment-card" onclick="window.location='https://www.roblox.com/communities/33807118/IBAI-United-Kingdom-Special-Forces'">
+                <img src="https://tr.rbxcdn.com/180DAY-8570f657f95d58335fcea99946120981/150/150/Image/Webp/noFilter" alt="United Kingdom Special Forces">
+                <h4>United Kingdom Special Forces</h4>
+            </div>
+
+            <!-- Royal Grenadier Guards -->
+            <div class="regiment-card" onclick="window.location='https://www.roblox.com/communities/33807009/BA-Royal-Grenadier-Guards'">
+                <img src="https://tr.rbxcdn.com/180DAY-0a83f740afd3199c3ee2feb699aea815/150/150/Image/Webp/noFilter" alt="Royal Grenadier Guards">
+                <h4>Royal Grenadier Guards</h4>
+            </div>
+
+            <!-- Royal Military Police -->
+            <div class="regiment-card" onclick="window.location='https://www.roblox.com/communities/33806898/BA-Royal-Military-Police'">
+                <img src="https://tr.rbxcdn.com/180DAY-083d41f047c1a113fb70935c45b11c50/150/150/Image/Webp/noFilter" alt="Royal Military Police">
+                <h4>Royal Military Police</h4>
+            </div>
         </div>
     </div>
 
     <script>
-        // Show and hide sections
-        function showRegiments() {
-            document.getElementById('regiments-container').style.display = 'grid';
-            document.getElementById('regiments-container').style.opacity = 1;
+        // You can add functions here for navigation and other behaviors if needed
+        function showHome() {
+            alert('Home page clicked');
         }
 
-        function showRegimentDetails(regiment) {
-            let regimentsContainer = document.getElementById('regiments-container');
-            let regimentDetails = document.getElementById('regiment-details');
-            
-            regimentsContainer.style.display = 'none';
-            regimentDetails.style.display = 'block';
-            regimentDetails.style.opacity = 1;
-
-            if (regiment === 'household-cavalry') {
-                document.getElementById('regiment-logo').src = 'https://tr.rbxcdn.com/180DAY-51cb2888d98d2a3a2d492762f033d33c/150/150/Image/Webp/noFilter';
-                document.getElementById('regiment-name').innerText = 'Household Cavalry';
-                document.getElementById('regiment-description').innerText = 'The Household Cavalry is the oldest regiment in the British Army, consisting of both mounted and armoured elements.';
-                document.getElementById('regiment-link').href = 'https://www.roblox.com/communities/33685230/The-Hous-hold-Cavalry';
-            }
-            // Add further details for other regiments here
-        }
-
-        function backToRegiments() {
-            document.getElementById('regiment-details').style.opacity = 0;
-            setTimeout(() => {
-                document.getElementById('regiment-details').style.display = 'none';
-                document.getElementById('regiments-container').style.display = 'grid';
-            }, 500);
+        function showArticles() {
+            alert('Articles page clicked');
         }
     </script>
+
 </body>
 </html>
