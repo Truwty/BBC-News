@@ -15,6 +15,7 @@
             display: flex;
             flex-direction: column;
             min-height: 100vh;
+            transition: background-color 0.3s ease;
         }
         header {
             background: #b80000;
@@ -27,6 +28,7 @@
             align-items: center;
             justify-content: center;
             border-bottom: 4px solid white;
+            transition: background 0.3s ease;
         }
         header img {
             height: 50px;
@@ -63,13 +65,18 @@
             padding: 20px;
             flex: 1;
             gap: 20px;
+            opacity: 0; /* Start hidden for animation */
+            transition: opacity 0.5s ease;
+        }
+        .content, .sidebar {
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            transition: transform 0.3s ease;
         }
         .content {
             flex: 3; /* Main content area */
-            background: #fff;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
         .intro-text {
             margin-bottom: 20px;
@@ -119,13 +126,6 @@
         }
         .article-preview button:hover {
             background: #900000;
-        }
-        .sidebar {
-            flex: 1; /* Sidebar area */
-            background: #fff;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
         .regiment-container {
             display: flex;
@@ -189,6 +189,10 @@
         .article-form button:hover {
             background: #900000;
         }
+        .password-form {
+            margin-top: 20px;
+            display: none; /* Initially hidden */
+        }
     </style>
 </head>
 <body>
@@ -206,7 +210,7 @@
         </ul>
     </nav>
 
-    <div class="main-container">
+    <div class="main-container" id="main-container">
         <div class="content" id="content">
             <div class="intro-text">
                 <h3>🇬🇧💂——— 𝙱𝚛𝚒𝚝𝚒𝚜𝚑  𝙼𝚒𝚕𝚒𝚝𝚊𝚛𝚢 𝚁𝚎𝚐𝚒𝚖𝚎𝚗𝚝𝚜 💂🇬🇧</h3>
@@ -259,7 +263,7 @@
                 </div>
                 <div class="regiment">
                     <a href="https://www.roblox.com/communities/33807009/BA-Royal-Grenadier-Guards" target="_blank">
-                        <img src="https://tr.rbxcdn.com/180DAY-0a83f740afd3199c3ee2feb699aea815/150/150/Image/Webp/noFilter" alt=" Royal Grenadier Guards Logo">
+                        <img src="https://tr.rbxcdn.com/180DAY-0a83f740afd3199c3ee2feb699aea815/150/150/Image/Webp/noFilter" alt="Royal Grenadier Guards Logo">
                         <h4>Royal Grenadier Guards</h4>
                     </a>
                     <p>One of the oldest regiments, known for its ceremonial duties and combat readiness.</p>
@@ -283,17 +287,69 @@
         let articles = [];
 
         document.getElementById('home-tab').addEventListener('click', function() {
-            document.getElementById('content').style.display = 'block';
-            document.getElementById('sidebar').style.display = 'none';
-            displayArticles();
+            showContent('home');
         });
 
         document.getElementById('article-tab').addEventListener('click', function() {
-            document.getElementById('content').style.display = 'block';
-            document.getElementById('sidebar').style.display = 'none';
-            document.querySelector('.article-preview-container').innerHTML = `
-                <h2>Write an Article</h2>
+            showContent('articles');
+        });
+
+        document.getElementById('regiment-tab').addEventListener('click', function() {
+            showContent('regiments');
+        });
+
+        function showContent(tab) {
+            const mainContainer = document.getElementById('main-container');
+            const content = document.getElementById('content');
+            const sidebar = document.getElementById('sidebar');
+
+            if (tab === 'home') {
+                content.style.display = 'block';
+                sidebar.style.display = 'none';
+                displayArticles();
+            } else if (tab === 'articles') {
+                content.style.display = 'block';
+                sidebar.style.display = 'none';
+                showPasswordForm();
+            } else if (tab === 'regiments') {
+                content.style.display = 'none';
+                sidebar.style.display = 'block';
+            }
+
+            // Smooth transition
+            mainContainer.style.opacity = '0';
+            setTimeout(() => {
+                mainContainer.style.opacity = '1';
+            }, 300);
+        }
+
+        function showPasswordForm() {
+            const passwordForm = document.createElement('div');
+            passwordForm.className = 'password-form';
+            passwordForm.innerHTML = `
+                <h2>Enter Password to Manage Articles</h2>
+                <input type="password" id="password-input" placeholder="Enter Password">
+                <button onclick="checkPassword()">Submit</button>
+            `;
+            const content = document.getElementById('content');
+            content.innerHTML = ''; // Clear previous content
+            content.appendChild(passwordForm);
+        }
+
+        function checkPassword() {
+            const password = document.getElementById('password-input').value;
+            if (password === "BBC") {
+                showArticleForm();
+            } else {
+                alert("Incorrect password. Please try again.");
+            }
+        }
+
+        function showArticleForm() {
+            const content = document.getElementById('content');
+            content.innerHTML = `
                 <div class="article-form">
+                    <h2>Write an Article</h2>
                     <input type="text" id="article-title" placeholder="Article Title" required>
                     <textarea id="article-content" rows="4" placeholder="Article Content" required></textarea>
                     <button onclick="submitArticle()">Submit Article</button>
@@ -303,12 +359,7 @@
                     <div class="no-articles">No articles available.</div>
                 </div>
             `;
-        });
-
-        document.getElementById('regiment-tab').addEventListener('click', function() {
-            document.getElementById('content').style.display = 'none';
-            document.getElementById('sidebar').style.display = 'block';
-        });
+        }
 
         function submitArticle() {
             const title = document.getElementById('article-title').value;
