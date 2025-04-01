@@ -344,7 +344,7 @@
         articlePreviewContainer.innerHTML = '';
 
         if (articles.length === 0) {
-            articlePreviewContainer.innerHTML = <p class="no-articles">No current articles</p>;
+            articlePreviewContainer.innerHTML = `<p class="no-articles">No current articles</p>`;
             return;
         }
 
@@ -353,14 +353,14 @@
             articleElement.classList.add('article-preview');
 
             if (article.image) {
-                articleElement.innerHTML += <img src="${article.image}" alt="Article Image" style="width: 100%; height: auto; border-radius: 10px; margin-bottom: 10px;">;
+                articleElement.innerHTML += `<img src="${article.image}" alt="Article Image" style="width: 100%; height: auto; border-radius: 10px; margin-bottom: 10px;">`;
             }
             
-            articleElement.innerHTML += 
+            articleElement.innerHTML += `
                 <h3>Article ${index + 1}</h3>
                 <p style="white-space: pre-line;">${article.content}</p>
                 <button onclick="deleteArticle(${index})">Delete</button>
-            ;
+            `;
 
             articlePreviewContainer.appendChild(articleElement);
         });
