@@ -141,6 +141,26 @@
             border-radius: 5px;
             margin-bottom: 10px;
         }
+        .article-form {
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 40px;
+            display: none;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .article-form.active {
+            display: block;
+        }
+        .article-form textarea {
+            width: 100%;
+            height: 300px;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            resize: vertical;
+        }
         footer {
             background: #b80000;
             color: white;
@@ -175,6 +195,16 @@
                 <a href="https://www.roblox.com/games/refer?PlaceId=79231464030396&PageType=GroupDetail&LocalTimestamp=%7BlocalTimestamp%7D" target="_blank">Play the Game</a>
                 <a href="https://www.roblox.com/communities/34500822/KBA-British-Army#!/about" target="_blank">Visit our Group</a>
             </div>
+        </div>
+
+        <!-- Article Writing Form -->
+        <div class="article-form" id="article-form">
+            <h2>Write an Article</h2>
+            <textarea id="article-content"></textarea>
+            <br>
+            <input type="file" id="article-image" accept="image/*">
+            <br>
+            <button onclick="submitArticle()">Submit Article</button>
         </div>
 
         <div class="article-preview-container" id="article-preview-container">
@@ -252,7 +282,7 @@
     });
 
     function submitArticle() {
-        let content = articleContent.value.trim().replace(/\n/g, "<br>");
+        let content = CKEDITOR.instances['article-content'].getData().trim().replace(/\n/g, "<br>");
         let imageFile = articleImageInput.files[0];
         let imageUrl = '';
 
@@ -328,6 +358,7 @@
     // Load saved articles on page load
     window.onload = function () {
         displayArticles();
+        CKEDITOR.replace('article-content'); // Initialize CKEditor
     };
 </script>
 
