@@ -163,7 +163,7 @@
             width: 100%;
         }
         .article-form {
-            background : #fff;
+            background: #fff;
             padding: 20px;
             border-radius: 10px;
             margin-top: 20px;
@@ -248,14 +248,14 @@
                     <p>BBC News provides comprehensive news coverage and is a trusted source of information.</p>
                 </div>
                 <div class="regiment">
-                    <a href="https://www.roblox.com/communities/33810709/BA-16th-Air-Assault -Brigade" target="_blank">
+                    <a href="https://www.roblox.com/communities/33810709/BA-16th-Air-Assault-Brigade" target="_blank">
                         <img src="https://tr.rbxcdn.com/180DAY-32350b3cac8aa69358acdd26a3942f11/150/150/Image/Webp/noFilter" alt="16th Air Assault Brigade Logo">
                         <h4>16th Air Assault Brigade</h4>
                     </a>
                     <p>This brigade specializes in airborne operations and rapid deployment.</p>
                 </div>
                 <div class="regiment">
-                    <a href="https://www.roblox.com/communities/33807118/IBAI-United-Kingdom-Special-Forces" target="_blank">
+                    <a href="https://www.roblox.com/communities/33807118/IBAI-United-K ingdom-Special-Forces" target="_blank">
                         <img src="https://tr.rbxcdn.com/180DAY-8570f657f95d58335fcea99946120981/150/150/Image/Webp/noFilter" alt="United Kingdom Special Forces Logo">
                         <h4>United Kingdom Special Forces</h4>
                     </a>
@@ -285,6 +285,10 @@
 
     <script>
         let articles = [];
+
+        document.addEventListener('DOMContentLoaded', function() {
+            showContent('home'); // Show home content on load
+        });
 
         document.getElementById('home-tab').addEventListener('click', function() {
             showContent('home');
@@ -350,7 +354,7 @@
             content.innerHTML = `
                 <div class="article-form">
                     <h2>Write an Article</h2>
-                    <textarea id="article-content" rows="10" placeholder="Write your article here..." required></ textarea>
+                    <textarea id="article-content" rows="10" placeholder="Write your article here..." required></textarea>
                     <button onclick="submitArticle()">Submit Article</button>
                 </div>
                 <div class="article-preview-container" id="article-preview-container">
