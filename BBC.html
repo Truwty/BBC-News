@@ -227,6 +227,7 @@
             <li class="home-tab">Home</li>
             <li class="article-tab">Articles</li>
             <li id="regiment-tab">Regiments</li>
+            <li id="discord-tab">Regimental Discords</li> <!-- New Tab -->
         </ul>
     </nav>
 
@@ -262,31 +263,31 @@
         <div class="regiment-container" id="regiment-container">
             <div class="regiment">
                 <img src="https://tr.rbxcdn.com/180DAY-51cb2888d98d2a3a2d492762f033d33c/150/150/Image/Webp/noFilter" alt="Household Cavalry">
-                <a href="https://www.roblox.com/communities/33685230/The-Hous-hold-Cavalry">Household Cavalry</a>
+                <p>Household Cavalry</p>
             </div>
             <div class="regiment">
                 <img src="https://tr.rbxcdn.com/180DAY-fd5c69fc74ddcdac20730b8d49e0d57d/150/150/Image/Webp/noFilter" alt="First Infantry Forces">
-                <a href="https://www.roblox.com/communities/35354568/BA-lnfantry-Forces-Division">First Infantry Forces</a>
+                <p>First Infantry Forces</p>
             </div>
             <div class="regiment">
                 <img src="https://tr.rbxcdn.com/180DAY-520addbf4b5835f27c4a1f6fbf16fa3a/150/150/Image/Webp/noFilter" alt="BBC News">
-                <a href="https://www.roblox.com/communities/34414750/Th-British-Broadcasting-Corporation">BBC News</a>
+                <p>BBC News</p>
             </div>
             <div class="regiment">
                 <img src="https://tr.rbxcdn.com/180DAY-32350b3cac8aa69358acdd26a3942f11/150/150/Image/Webp/noFilter" alt="16th Air Assault Brigade">
-                <a href="https://www.roblox.com/communities/33810709/BA-16th-Air-Assault-Brigade">16th Air Assault Brigade</a>
+                <p>16th Air Assault Brigade</p>
             </div>
             <div class="regiment">
                 <img src="https://tr.rbxcdn.com/180DAY-8570f657f95d58335fcea99946120981/150/150/Image/Webp/noFilter" alt="United Kingdom Special Forces">
-                <a href="https://www.roblox.com/communities/33807118/IBAI-United-Kingdom-Special-Forces">United Kingdom Special Forces</a>
+                <p>United Kingdom Special Forces</p>
             </div>
             <div class="regiment">
                 <img src="https://tr.rbxcdn.com/180DAY-0a83f740afd3199c3ee2feb699aea815/150/150/Image/Webp/noFilter" alt="Royal Grenadier Guards">
-                <a href="https://www.roblox.com/communities/33807009/BA-Royal-Grenadier-Guards">Royal Grenadier Guards</a>
+                <p>Royal Grenadier Guards</p>
             </div>
             <div class="regiment">
                 <img src="https://tr.rbxcdn.com/180DAY-083d41f047c1a113fb70935c45b11c50/150/150/Image/Webp/noFilter" alt="Royal Military Police">
-                <a href="https://www.roblox.com/communities/33806898/BA-Royal-Military-Police">Royal Military Police</a>
+                <p>Royal Military Police</p>
             </div>
         </div>
 
@@ -300,6 +301,7 @@
     let articleContent = document.getElementById('article-content');
     let articleImageInput = document.getElementById('article-image');
     let regimentTab = document.getElementById('regiment-tab');
+    let discordTab = document.getElementById('discord-tab'); // New Discord Tab
     let regimentContainer = document.getElementById('regiment-container');
     let hasAccess = false; // Track if user has entered the password
     let loadingIndicator = document.getElementById('loading');
@@ -325,6 +327,13 @@
     // Show Regiments Section
     regimentTab.addEventListener('click', () => {
         regimentContainer.classList.toggle('active');
+    });
+
+    // Show Regimental Discords Section
+    discordTab.addEventListener('click', () => {
+        regimentContainer.classList.remove('active'); // Hide regiments
+        // You can add functionality here to show Discord information in the future
+        alert("This section will display regimental Discords in the future.");
     });
 
     function submitArticle() {
