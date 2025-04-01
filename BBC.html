@@ -10,12 +10,9 @@
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f4f4f4;
+            background-color: #ffffff;
             color: #000;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-            transition: background-color 0.3s ease;
+            text-align: center;
         }
         header {
             background: #b80000;
@@ -28,7 +25,6 @@
             align-items: center;
             justify-content: center;
             border-bottom: 4px solid white;
-            transition: background 0.3s ease;
         }
         header img {
             height: 50px;
@@ -61,78 +57,59 @@
             transform: scale(1.1);
         }
         .main-container {
+            padding: 40px 20px;
+        }
+        .buttons-container {
             display: flex;
-            padding: 20px;
-            flex: 1;
+            justify-content: center;
             gap: 20px;
-            opacity: 0; /* Start hidden for animation */
-            transition: opacity 0.5s ease;
         }
-        .content, .sidebar {
-            background: #fff;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            padding: 20px;
-            transition: transform 0.3s ease;
+        .button {
+            background: #b80000;
+            color: white;
+            padding: 15px 30px;
+            text-decoration: none;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            font-size: 18px;
+            font-weight: bold;
+            transition: background 0.3s, transform 0.2s;
         }
-        .content {
-            flex: 3; /* Main content area */
+        .button:hover {
+            background: #900000;
+            transform: scale(1.05);
+        }
+        .button img {
+            height: 30px;
         }
         .intro-text {
-            margin-bottom: 20px;
+            margin-bottom: 40px;
             padding: 20px;
             font-size: 24px;
             background: #f2f2f2;
             border-radius: 10px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
-        .article-preview-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 20px;
-            margin-top: 20px;
-        }
-        .article-preview {
-            background: #f2f2f2;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            overflow: hidden;
-            transition: transform 0.2s;
-            text-align: left; /* Align text to the left */
-            cursor: pointer; /* Change cursor to pointer */
-        }
-        .article-preview:hover {
-            transform: scale(1.05);
-        }
-        .article-preview h3 {
-            color: #b80000;
-            font-size: 20px;
-            margin: 10px;
-        }
-        .article-preview p {
-            font-size: 16px;
-            color: #333;
-            padding: 0 10px 10px; /* Add padding to the bottom */
-        }
-        .article-preview button {
-            background: #b80000;
-            color: white;
-            border: none;
-            padding: 10px;
-            border-radius: 5px;
-            cursor: pointer;
-            margin: 10px;
-            transition: background 0.3s;
-        }
-        .article-preview button:hover {
-            background: #900000;
+        .intro-text h3 {
+            font-size: 28px;
+            font-weight: bold;
         }
         .regiment-container {
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
             gap: 20px;
-            margin-top: 20px;
+            margin-top: 40px;
+            display: none;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+        }
+        .regiment-container.active {
+            display: flex;
+            opacity: 1;
         }
         .regiment {
             background: #f2f2f2;
@@ -140,11 +117,9 @@
             border-radius: 10px;
             text-align: center;
             width: 200px;
-            cursor: pointer;
-            transition: transform 0.3s;
-        }
-        .regiment:hover {
-            transform: scale(1.05);
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.5s forwards;
         }
         .regiment img {
             width: 100px;
@@ -153,45 +128,78 @@
             border-radius: 5px;
             margin-bottom: 10px;
         }
-        footer {
-            background: #b80000;
-            color: white;
-            text-align: center;
-            padding: 10px;
-            position: relative;
-            bottom: 0;
-            width: 100%;
+        .regiment a {
+            color: #b80000;
+            font-weight: bold;
+            text-decoration: none;
+            font-size: 16px;
         }
+        .regiment a:hover {
+            color: #900000;
+        }
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        /* Article form styling */
         .article-form {
-            background: #fff;
+            background: #f2f2f2;
             padding: 20px;
             border-radius: 10px;
-            margin-top: 20px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 40px;
+            display: none;
         }
-        .article-form input,
+        .article-form.active {
+            display: block;
+        }
         .article-form textarea {
             width: 100%;
+            height: 300px;
             padding: 10px;
-            margin: 5px 0;
-            border: 1px solid #ddd;
+            font-size: 16px;
+            border: 1px solid #ccc;
             border-radius: 5px;
+            resize: vertical;
         }
-        .article-form button {
-            background: #b80000;
-            color: white;
-            border: none;
-            padding: 10px;
-            border-radius: 5px;
-            cursor: pointer;
+        .article-form input[type="file"] {
             margin-top: 10px;
         }
-        .article-form button:hover {
-            background: #900000;
+        .article-preview-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 40px;
         }
-        .password-form {
+        .article-preview {
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            width: 300px;
+        }
+        .article-preview img {
+            width: 100%;
+            height: auto;
+            max-height: 150px;
+            object-fit: cover;
+            margin-bottom: 10px;
+        }
+        .article-preview h3 {
+            color: #b80000;
+            font-size: 20px;
+            margin: 10px 0;
+        }
+        .article-preview p {
+            font-size: 16px;
+            color: #333;
+        }
+        .no-articles {
+            font-size: 20px;
+            color: #333;
             margin-top: 20px;
-            display: none; /* Initially hidden */
         }
     </style>
 </head>
@@ -204,211 +212,179 @@
     
     <nav>
         <ul>
-            <li id="home-tab">Home</li>
-            <li id="article-tab">Articles</li>
+            <li class="home-tab">Home</li>
+            <li class="article-tab">Articles</li>
             <li id="regiment-tab">Regiments</li>
         </ul>
     </nav>
 
-    <div class="main-container" id="main-container">
-        <div class="content" id="content">
-            <div class="intro-text">
-                <h3>🇬🇧💂——— 𝙱𝚛𝚒𝚝𝚒𝚜𝚑  𝙼𝚒𝚕𝚒𝚝𝚊𝚛𝚢 𝚁𝚎𝚐𝚒𝚖𝚎𝚗𝚝𝚜 💂🇬🇧</h3>
-                <p>Explore the various regiments of the British military, each with its unique history and role.</p>
-            </div>
-
-            <div class="article-preview-container" id="article-preview-container">
-                <h2>Articles</h2>
-                <div class="no-articles">No articles available.</div>
-            </div>
+    <div class="main-container">
+        <div class="intro-text">
+            <h3>🇬🇧💂——— 𝙱𝚛𝚒𝚝𝚒𝚜𝚑 𝙰𝚛𝚖𝚢 —💂🇬🇧</h3>
+            <p>𝚆𝚎𝚕𝚌𝚘𝚖𝚎 𝚝𝚘 𝙱𝙰! 𝚆𝚎 𝚊𝚛𝚎 𝚊𝚗 𝚊𝚛𝚖𝚢 𝚋𝚞𝚒𝚕𝚝 𝚘𝚗 𝚑𝚒𝚐𝚑 𝚜𝚝𝚊𝚗𝚍𝚊𝚛𝚍𝚜, 𝙿𝚛𝚘𝚏𝚎𝚜𝚜𝚒𝚘𝚗𝚊𝚕𝚒𝚜𝚖 𝚊𝚗𝚍 𝚘𝚟𝚎𝚛𝚊𝚕𝚕 𝚍𝚎𝚍𝚒𝚌𝚊𝚝𝚒𝚘𝚗 𝚝𝚘 𝚘𝚞𝚛 𝚙𝚛𝚘𝚞𝚍 𝚏𝚕𝚊𝚐 𝚘𝚏 𝚝𝚑𝚎 𝚄𝚗𝚒𝚝𝚎𝚍 𝙺𝚒𝚗𝚐𝚍𝚘𝚖!</p>
         </div>
 
-        <div class="sidebar" id="sidebar" style="display: none;">
-            <h2>Regiments</h2>
-            <div class="regiment-container" id="regimentContainer">
-                <div class="regiment">
-                    <a href="https://www.roblox.com/communities/33685230/The-Hous-hold-Cavalry" target="_blank">
-                        <img src="https://tr.rbxcdn.com/180DAY-51cb2888d98d2a3a2d492762f033d33c/150/150/Image/Webp/noFilter" alt="Household Cavalry Logo">
-                        <h4>Household Cavalry</h4>
-                    </a>
-                    <p>The Household Cavalry is the oldest and most senior regiments of the British Army.</p>
-                </div>
-                <div class="regiment">
-                    <a href="https://www.roblox.com/communities/35354568/BA-lnfantry-Forces-Division" target="_blank">
-                        <img src="https://tr.rbxcdn.com/180DAY-fd5c69fc74ddcdac20730b8d49e0d57d/150/150/Image/Webp/noFilter" alt="First Infantry Forces Logo">
-                        <h4>First Infantry Forces</h4>
-                    </a>
-                    <p>First Infantry Forces is known for its rapid response and versatility in combat.</p>
-                </div>
-                <div class="regiment">
-                    <a href="https://www.roblox.com/communities/34414750/Th-British-Broadcasting-Corporation" target="_blank">
-                        <img src="https://tr.rbxcdn.com/180DAY-520addbf4b5835f27c4a1f6fbf16fa3a/150/150/Image/Webp/noFilter" alt="BBC News Logo">
-                        <h4>BBC News</h4>
-                    </a>
-                    <p>BBC News provides comprehensive news coverage and is a trusted source of information.</p>
-                </div>
-                <div class="regiment">
-                    <a href="https://www.roblox.com/communities/33810709/BA-16th-Air-Assault-Brigade" target="_blank">
-                        <img src="https://tr.rbxcdn.com/180DAY-32350b3cac8aa69358acdd26a3942f11/150/150/Image/Webp/noFilter" alt="16th Air Assault Brigade Logo">
-                        <h4>16th Air Assault Brigade</h4>
-                    </a>
-                    <p>This brigade specializes in airborne operations and rapid deployment.</p>
-                </div>
-                <div class="regiment">
-                    <a href="https://www.roblox.com/communities/33807118/IBAI-United-Kingdom-Special-Forces" target="_blank">
-                        <img src="https://tr.rbxcdn.com/180DAY-8570f657f95d58335fcea99946120981/150/150/Image/Webp/noFilter" alt="United Kingdom Special Forces Logo">
-                        <h4>United Kingdom Special Forces</h4>
-                    </a>
-                    <p>UK Special Forces conduct high-risk operations and are highly trained for various missions.</p>
-                </div>
-                <div class="regiment">
-                    <a href="https://www.roblox.com/communities/33807009/BA-Royal-Grenadier-Guards" target="_blank">
-                        <img src="https://tr.rbxcdn.com/180DAY-0a83f740afd3199c3ee2feb699aea815/150/150/Image/Webp/noFilter" alt="Royal Grenadier Guards Logo">
-                        <h4>Royal Grenadier Guards</h4>
-                    </a>
-                    <p>One of the oldest regiments, known for its ceremonial duties and combat readiness.</p>
-                </div>
-                <div class="regiment">
-                    <a href="https://www.roblox.com/communities/33806898/BA-Royal-Military-Police" target="_blank">
-                        <img src="https://tr.rbxcdn.com/180DAY-083d41f047c1a113fb70935c45b11c50/150/150/Image/Web p/noFilter" alt="Royal Military Police Logo">
-                        <h4>Royal Military Police</h4>
-                    </a>
-                    <p>Responsible for maintaining law and order within the British Army.</p>
-                </div>
+        <!-- Articles Section -->
+        <div class="article-form" id="article-form">
+            <h2>Write an Article</h2>
+            <textarea id="article-content"></textarea>
+            <br>
+            <input type="file" id="article-image" accept="image/*">
+            <br>
+            <button onclick="submitArticle()">Submit Article</button>
+        </div>
+
+        <div class="article-preview-container" id="article-preview-container">
+            <p class="no-articles">No current articles</p>
+        </div>
+
+        <!-- Regiments Section -->
+        <div class="regiment-container" id="regiment-container">
+            <div class="regiment">
+                <img src="https://tr.rbxcdn.com/180DAY-51cb2888d98d2a3a2d492762f033d33c/150/150/Image/Webp/noFilter" alt="Household Cavalry">
+                <a href="https://www.roblox.com/communities/33685230/The-Hous-hold-Cavalry">Household Cavalry</a>
+            </div>
+            <div class="regiment">
+                <img src="https://tr.rbxcdn.com/180DAY-fd5c69fc74ddcdac20730b8d49e0d57d/150/150/Image/Webp/noFilter" alt="First Infantry Forces">
+                <a href="https://www.roblox.com/communities/35354568/BA-lnfantry-Forces-Division">First Infantry Forces</a>
+            </div>
+            <div class="regiment">
+                <img src="https://tr.rbxcdn.com/180DAY-520addbf4b5835f27c4a1f6fbf16fa3a/150/150/Image/Webp/noFilter" alt="BBC News">
+                <a href="https://www.roblox.com/communities/34414750/Th-British-Broadcasting-Corporation">BBC News</a>
+            </div>
+            <div class="regiment">
+                <img src="https://tr.rbxcdn.com/180DAY-32350b3cac8aa69358acdd26a3942f11/150/150/Image/Webp/noFilter" alt="16th Air Assault Brigade">
+                <a href="https://www.roblox.com/communities/33810709/BA-16th-Air-Assault-Brigade">16th Air Assault Brigade</a>
+            </div>
+            <div class="regiment">
+                <img src="https://tr.rbxcdn.com/180DAY-8570f657f95d58335fcea99946120981/150/150/Image/Webp/noFilter" alt="United Kingdom Special Forces">
+                <a href="https://www.roblox.com/communities/33807118/IBAI-United-Kingdom-Special-Forces">United Kingdom Special Forces</a>
+            </div>
+            <div class="regiment">
+                <img src="https://tr.rbxcdn.com/180DAY-0a83f740afd3199c3ee2feb699aea815/150/150/Image/Webp/noFilter" alt="Royal Grenadier Guards">
+                <a href="https://www.roblox.com/communities/33807009/BA-Royal-Grenadier-Guards">Royal Grenadier Guards</a>
+            </div>
+            <div class="regiment">
+                <img src="https://tr.rbxcdn.com/180DAY-083d41f047c1a113fb70935c45b11c50/150/150/Image/Webp/noFilter" alt="Royal Military Police">
+                <a href="https://www.roblox.com/communities/33806898/BA-Royal-Military-Police">Royal Military Police</a>
             </div>
         </div>
     </div>
 
-    <footer>
-        &copy; 2023 SBBC News Portal. All rights reserved.
-    </footer>
+<script>
+    let isArticleActive = false;
+    let articleForm = document.getElementById('article-form');
+    let articlePreviewContainer = document.getElementById('article-preview-container');
+    let articleContent = document.getElementById('article-content');
+    let articleImageInput = document.getElementById('article-image');
+    let regimentTab = document.getElementById('regiment-tab');
+    let regimentContainer = document.getElementById('regiment-container');
+    let hasAccess = false; // Track if user has entered the password
 
-    <script>
-        let articles = [];
+    document.querySelector('.home-tab').addEventListener('click', () => {
+        window.location.reload();
+    });
 
-        document.addEventListener('DOMContentLoaded', function() {
-            showContent('home'); // Show home content on load
-        });
-
-        document.getElementById('home-tab').addEventListener('click', function() {
-            showContent('home');
-        });
-
-        document.getElementById('article-tab').addEventListener('click', function() {
-            showContent('articles');
-        });
-
-        document.getElementById('regiment-tab').addEventListener('click', function() {
-            showContent('regiments');
-        });
-
-        function showContent(tab) {
-            const mainContainer = document.getElementById('main-container');
-            const content = document.getElementById('content');
-            const sidebar = document.getElementById('sidebar');
-
-            if (tab === 'home') {
-                content.style.display = 'block';
-                sidebar.style.display = 'none';
-                displayArticles();
-            } else if (tab === 'articles') {
-                content.style.display = 'block';
-                sidebar.style.display = 'none';
-                showPasswordForm();
-            } else if (tab === 'regiments') {
-                content.style.display = 'none';
-                sidebar.style.display = 'block';
-            }
-
-            // Smooth transition
-            mainContainer.style.opacity = '0';
-            setTimeout(() => {
-                mainContainer.style.opacity = '1';
-            }, 300);
-        }
-
-        function showPasswordForm() {
-            const passwordForm = document.createElement('div');
-            passwordForm.className = 'password-form';
-            passwordForm.innerHTML = `
-                <h2>Enter Password to Manage Articles</h2>
-                <input type="password" id="password-input" placeholder="Enter Password">
-                <button onclick="checkPassword()">Submit</button>
-            `;
-            const content = document.getElementById('content');
-            content.innerHTML = ''; // Clear previous content
-            content.appendChild(passwordForm);
-        }
-
-        function checkPassword() {
-            const password = document.getElementById('password-input').value;
+    // Show Article Writing Form (Password Protected)
+    document.querySelector('.article-tab').addEventListener('click', () => {
+        if (!hasAccess) {
+            let password = prompt("Enter the password to access articles:");
             if (password === "BBC") {
-                showArticleForm();
+                hasAccess = true;
             } else {
-                alert("Incorrect password. Please try again.");
+                alert("Incorrect password. Access denied.");
+                return;
             }
         }
+        articleForm.classList.toggle('active');
+    });
 
-        function showArticleForm() {
-            const content = document.getElementById('content');
-            content.innerHTML = `
-                <div class="article-form">
-                    <h2>Write an Article</h2>
-                    <textarea id="article-content" rows="10" placeholder="Write your article here..." required></textarea>
-                    <button onclick="submitArticle()">Submit Article</button>
-                </div>
-                <div class="article-preview-container" id="article-preview-container">
-                    <h2>Articles</h2>
-                    <div class="no-articles">No articles available.</div>
-                </div>
+    // Show Regiments Section
+    regimentTab.addEventListener('click', () => {
+        regimentContainer.classList.toggle('active');
+    });
+
+    function submitArticle() {
+        let content = articleContent.value.trim().replace(/\n/g, "<br>");
+        let imageFile = articleImageInput.files[0];
+        let imageUrl = '';
+
+        if (!content) {
+            alert("Please enter article content.");
+            return;
+        }
+
+        if (imageFile) {
+            let reader = new FileReader();
+            reader.onload = function (e) {
+                imageUrl = e.target.result;
+                saveArticle(content, imageUrl);
+            };
+            reader.readAsDataURL(imageFile);
+        } else {
+            saveArticle(content, '');
+        }
+    }
+
+    function saveArticle(content, imageUrl) {
+        let articles = JSON.parse(localStorage.getItem('articles')) || [];
+
+        let article = {
+            content: content,
+            image: imageUrl
+        };
+
+        articles.push(article);
+        localStorage.setItem('articles', JSON.stringify(articles));
+        displayArticles();
+    }
+
+    function displayArticles() {
+        let articles = JSON.parse(localStorage.getItem('articles')) || [];
+        articlePreviewContainer.innerHTML = '';
+
+        if (articles.length === 0) {
+            articlePreviewContainer.innerHTML = `<p class="no-articles">No current articles</p>`;
+            return;
+        }
+
+        articles.forEach((article, index) => {
+            let articleElement = document.createElement('div');
+            articleElement.classList.add('article-preview');
+
+            if (article.image) {
+                articleElement.innerHTML += `<img src="${article.image}" alt="Article Image" style="width: 100%; height: auto; border-radius: 10px; margin-bottom: 10px;">`;
+            }
+            
+            articleElement.innerHTML += `
+                <h3>Article ${index + 1}</h3>
+                <p style="white-space: pre-line;">${article.content}</p>
+                <button onclick="deleteArticle(${index})">Delete</button>
             `;
-            CKEDITOR.replace('article-content'); // Initialize CKEditor
-        }
 
-        function submitArticle() {
-            const editorData = CKEDITOR.instances['article-content'].getData();
-            if (!editorData) {
-                alert("Please write your article.");
-                return;
-            }
+            articlePreviewContainer.appendChild(articleElement);
+        });
+    }
 
-            const article = { content: editorData };
-            articles.push(article);
-            CKEDITOR.instances['article-content'].setData(''); // Clear the editor
+    function deleteArticle(index) {
+        let password = prompt("Enter the password to delete this article:");
+        if (password === "BBC") {
+            let articles = JSON.parse(localStorage.getItem('articles')) || [];
+            articles.splice(index, 1);
+            localStorage.setItem('articles', JSON.stringify(articles));
             displayArticles();
+        } else {
+            alert("Incorrect password. Article not deleted.");
         }
+    }
 
-        function displayArticles() {
-            const articlePreviewContainer = document.getElementById('article-preview-container');
-            articlePreviewContainer.innerHTML = '<h2>Articles</h2>';
-            if (articles.length === 0) {
-                articlePreviewContainer.innerHTML += '<div class="no-articles">No articles available.</div>';
-                return;
-            }
+    // Load saved articles on page load
+    window.onload = function () {
+        displayArticles();
+    };
+</script>
 
-            articles.forEach((article, index) => {
-                const articleElement = document.createElement('div');
-                articleElement.classList.add('article-preview');
-                articleElement.innerHTML = `
-                    <div>${article.content}</div>
-                    <button onclick="editArticle(${index})">Edit</button>
-                    <button onclick="deleteArticle(${index})">Delete</button>
-                `;
-                articlePreviewContainer.appendChild(articleElement);
-            });
-        }
 
-        function editArticle(index) {
-            const article = articles[index];
-            CKEDITOR.instances['article-content'].setData(article.content);
-            articles.splice(index, 1); // Remove the article from the array
-            displayArticles();
-        }
 
-        function deleteArticle(index) {
-            articles.splice(index, 1); // Remove the article from the array
-            displayArticles();
-        }
-    </script>
 </body>
 </html>
