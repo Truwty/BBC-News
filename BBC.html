@@ -162,27 +162,20 @@
             width: 200px;
             padding: 10px;
             transition: transform 0.3s, box-shadow 0.3s; /* Add transition for hover effect */
+            cursor: pointer;
         }
         .regiment:hover {
-            transform: scale(1.05); /* Scale up on hover */
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Increase shadow on hover */
+            transform: scale(1.05);
+            box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
         }
-        .regiment img {
-            width: 100px;
-            height: 100px;
-            object-fit: cover;
-            border-radius: 5px;
-            margin-bottom: 10px;
-        }
-        .article-form {
+        .login-form {
+            display: none;
             background: #fff;
             padding: 20px;
             border-radius: 10px;
-            margin-bottom: 40px;
-            display: none;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
-        .article-form.active {
+        .login-form.active {
             display: block;
         }
         footer {
@@ -233,360 +226,141 @@
             border: 1px solid #ddd;
             border-radius: 5px;
             padding: 10px;
+            margin: 10px 0;
+        }
+        .comment h4 {
+            margin: 0;
+            font-size: 16px;
+            color: #b80000;
+        }
+        .comment p {
+            margin: 5px 0 0;
+            font-size: 14px;
+        }
+        .comment-form {
+            display: flex;
+            flex-direction: column;
+            margin-top: 20px;
+        }
+        .comment-form input,
+        .comment-form textarea {
+            padding: 10px;
             margin: 5px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
         }
-        .login-form {
-            display: none;
-            background: #fff;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        .comment-form button {
+            background: #b80000;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
         }
-        .login-form.active {
-            display: block;
+        .comment-form button:hover {
+            background: #900000;
         }
     </style>
 </head>
 <body>
-
     <header>
-        <img src="https://tr.rbxcdn.com/180DAY-520addbf4b5835f27c4a1f6fbf16fa3a/150/150/Image/Webp/noFilter" alt="BBC Logo">
-        Secret's BBC News
+        SBBC News Portal
     </header>
-    
     <nav>
         <ul>
-            <li class="home-tab">Home</li>
-            <li class="article-tab">Articles</li>
-            <li id="regiment-tab">Regiments</li>
-            <li class="login-tab">Login</li>
+            <li id="regiments-tab">Regiments</li>
+            <li id="login-tab">Login</li>
+            <li>Other Tab</li>
         </ul>
     </nav>
-
     <div class="main-container">
         <div class="content">
             <div class="intro-text">
-                <h3>🇬🇧💂——— 𝙱𝚛𝚒𝚝𝚒𝚜𝚑 𝙰𝚛𝚖𝚢 —💂🇬🇧</h3>
-                <p>𝚆𝚎𝚕𝚌𝚘𝚖𝚎 𝚝𝚘 𝙱𝙰! 𝚆𝚎 𝚊𝚛𝚎 𝚊𝚗 𝚊𝚛𝚖𝚢 𝚋𝚞𝚒𝚕𝚝 𝚘𝚗 𝚑𝚒𝚐𝚑 𝚜𝚝𝚊𝚗𝚍𝚊𝚛𝚍𝚜, 𝙿𝚛𝚘𝚏𝚎𝚜𝚜𝚒𝚘𝚗𝚊𝚕𝚒𝚜𝚖 𝚊𝚗𝚍 𝚘𝚟𝚎𝚛𝚊𝚕𝚕 𝚍𝚎𝚍𝚒𝚌𝚊𝚝𝚒𝚘𝚗 𝚝𝚘 𝚘𝚞𝚛 𝚙𝚛𝚘𝚞𝚍 𝚏𝚕𝚊𝚐 𝚘𝚏 𝚝𝚑𝚎 𝚄𝚗𝚒𝚝𝚎𝚍 𝙺𝚒𝚗𝚐𝚍𝚘𝚖!</p>
-                <div class="links">
-                    <a href="https://discord.gg/AzVaTUk9tF" target="_blank">Join our Discord</a>
-                    <a href="https://www.roblox.com/games/refer?PlaceId=79231464030396&PageType=GroupDetail&LocalTimestamp=%7BlocalTimestamp%7D" target="_blank">Play the Game</a>
-                    <a href="https://www.roblox.com/communities/34500822/KBA-British-Army#!/about" target="_blank">Visit our Group</a>
+                Welcome to the SBBC News Portal! Stay updated with the latest news.
+            </div>
+            <div class="article-preview-container">
+                <div class="article-preview">
+                    <img src="image1.jpg" alt="Article 1">
+                    <h3>Article Title 1</h3>
+                    <p>Short description of the article.</p>
+                    <button>Read More</button>
+                </div>
+                <div class="article-preview">
+                    <img src="image2.jpg" alt="Article 2">
+                    <h3>Article Title 2</h3>
+                    <p>Short description of the article.</p>
+                    <button>Read More</button>
                 </div>
             </div>
-
-            <!-- Article Writing Form -->
-            <div class="article-form" id="article-form">
-                <h2>Write an Article</h2>
-                <input type="text" id="article-title" placeholder="Article Title" required>
-                <textarea id="article-content"></textarea>
-                <br>
-                <input type="file" id="article-image" accept="image/*">
-                <br>
-                <input type="text" id="article-tags" placeholder="Tags (comma-separated)">
-                <br>
-                <button onclick="submitArticle()">Submit Article</button>
-            </div>
-
-            <div class="article-preview-container" id="article-preview-container">
-                <p class="no-articles">No current articles</p>
+            <div class="comment-section">
+                <h2>Comments</h2>
+                <div class="comment-form">
+                    <input type="text" placeholder="Your Name" id="comment-name">
+                    <textarea placeholder="Your Comment" id="comment-text"></textarea>
+                    <button id="submit-comment">Submit Comment</button>
+                </div>
+                <div id="comments-list"></div>
             </div>
         </div>
-
-        <aside class="sidebar" id="regiment-sidebar">
-            <h2>Regiments</h2>
+        <div class="sidebar" id="regiment-sidebar">
             <div class="regiment-container" id="regiment-container">
-                <div class="regiment">
-                    <img src="https://tr.rbxcdn.com/180DAY-51cb2888d98d2a3a2d492762f033d33c/150/150/Image/Webp/noFilter" alt="Household Cavalry">
-                    <a href="https://www.roblox.com/communities/33685230/The-Hous-hold-Cavalry">Household Cavalry</a>
-                </div>
-                <div class="regiment">
-                    <img src="https://tr.rbxcdn.com/180DAY-fd5c69fc74ddcdac20730b8d49e0d57d/150/150/Image/Webp/noFilter" alt="First Infantry Forces">
-                    <a href="https://www.roblox.com/communities/35354568/BA-lnfantry-Forces-Division">First Infantry Forces</a>
-                </div>
-                <div class="regiment">
-                    <img src="https://tr.rbxcdn.com/180DAY-520addbf4b5835f27c4a1f6fbf16fa3a/150/150/Image/Webp/noFilter" alt="BBC News">
-                    <a href="https://www.roblox.com/communities/34414750/Th-British-Broadcasting-Corporation">BBC News</a>
-                </div>
-                <div class="regiment">
-                    <img src="https://tr.rbxcdn.com/180DAY-32350b3cac8aa69358acdd26a3942f11/150/150/Image/Webp/noFilter" alt="16th Air Assault Brigade">
-                    <a href="https://www.roblox.com/communities/33810709/BA-16th-Air-Assault-Brigade">16th Air Assault Brigade</a>
-                </div>
-                <div class="regiment">
-                    <img src="https://tr.rbxcdn.com/180DAY-8570f657f95d58335fcea99946120981/150/150/Image/Webp/noFilter" alt="United Kingdom Special Forces">
-                    <a href="https://www.roblox.com/communities/33807118/IBAI-United-Kingdom-Special-Forces">United Kingdom Special Forces</a>
-                </div>
-                <div class="regiment">
-                    <img src="https://tr.rbxcdn.com/180DAY-0a83f740afd3199c3ee2feb699aea815/150/150/Image/Webp/noFilter" alt="Royal Grenadier Guards">
-                    <a href="https://www.roblox.com/communities/33807009/BA-Royal-Grenadier-Guards">Royal Grenadier Guards</a>
-                </div>
-                <div class="regiment">
-                    <img src="https://tr.rbxcdn.com/180DAY-083d41f047c1a113fb70935c45b11c50/150/150/Image/Webp/noFilter" alt="Royal Military Police">
-                    <a href="https://www.roblox.com/communities/33806898/BA-Royal-Military-Police">Royal Military Police</a>
-                </div>
-            </div>
-        </aside>
-    </div>
-
-    <footer>
-        <p>&copy; 2023 SBBC News Portal. All rights reserved.</p>
-    </footer>
-
-    <div id="article-modal" class="modal">
-        <div class="modal-content">
-            <span class="close" onclick="closeModal()">&times;</span>
-            <h2 id="modal-title"></h2>
-            <img id="modal-image" src="" alt="Article Image" style="max-width: 100%; height: auto;">
-            <p id="modal-content"></p>
-            <div class="comment-section" id="comment-section">
-                <h3>Comments</h3>
-                <div id="comments"></div>
-                <input type="text" id="comment-input" placeholder="Add a comment">
-                <button onclick="addComment()">Submit Comment</button>
+                <div class="regiment">Regiment 1</div>
+                <div class="regiment">Regiment 2</div>
+                <div class="regiment">Regiment 3</div>
             </div>
         </div>
     </div>
-
     <div class="login-form" id="login-form">
         <h2>Login</h2>
-        <input type="text" id="username" placeholder="Username" required>
-        <input type="password" id="password" placeholder="Password" required>
-        <button onclick="login()">Login</button>
-        <button onclick="showRegisterForm()">Register</button>
+        <input type="text" placeholder="Username" id="username">
+        <input type="password" placeholder="Password" id="password">
+        <button id="login-button">Login</button>
     </div>
+    <footer>
+        &copy; 2023 SBBC News Portal. All rights reserved.
+    </footer>
+    <script>
+        const regimentsTab = document.getElementById('regiments-tab');
+        const regimentSidebar = document.getElementById('regiment-sidebar');
+        const regimentContainer = document.getElementById('regiment-container');
+        const loginTab = document.getElementById('login-tab');
+        const loginForm = document.getElementById('login-form');
+        const submitComment = document.getElementById('submit-comment');
+        const commentsList = document.getElementById('comments-list');
 
-    <div class="login-form" id="register-form" style="display: none;">
-        <h2>Register</h2>
-        <input type="text" id="new-username" placeholder="Username" required>
-        <input type="password" id="new-password" placeholder="Password" required>
-        <button onclick="register()">Register</button>
-        <button onclick="showLoginForm()">Back to Login</button>
-    </div>
-
-<script>
-    let isArticleActive = false;
-    let articleForm = document.getElementById('article-form');
-    let articlePreviewContainer = document.getElementById('article-preview-container');
-    let articleContent = document.getElementById('article-content');
-    let articleTitleInput = document.getElementById('article-title');
-    let articleImageInput = document.getElementById('article-image');
-    let articleTagsInput = document.getElementById('article-tags');
-    let regimentTab = document.getElementById('regiment-tab');
-    let regimentContainer = document.getElementById('regiment-container');
-    let regimentSidebar = document.getElementById('regiment-sidebar');
-    let hasAccess = false; // Track if user has entered the password
-    let loggedInUser  = null; // Track logged-in user
-
-    document.querySelector('.home-tab').addEventListener('click', () => {
-        window.location.reload();
-    });
-
-    // Show Article Writing Form (Password Protected)
-    document.querySelector('.article-tab').addEventListener('click', () => {
-        if (!hasAccess) {
-            let password = prompt("Enter the password to access articles:");
-            if (password === "BBC") {
-                hasAccess = true;
+        regimentsTab.addEventListener('click', () => {
+            if (regimentSidebar.style.display === 'none' || regimentSidebar.style.display === '') {
+                regimentSidebar.style.display = 'block';
+                setTimeout(() => {
+                    regimentContainer.classList.add('active');
+                }, 10);
             } else {
-                alert("Incorrect password. Access denied.");
-                return;
+                regimentContainer.classList.remove('active');
+                setTimeout(() => {
+                    regimentSidebar.style.display = 'none';
+                }, 500);
             }
-        }
-        articleForm.classList.toggle('active');
-    });
+        });
 
-    // Show Regiments Section
-    regimentTab.addEventListener('click', () => {
-        regimentSidebar.style.display = 'block'; // Show the sidebar
-        regimentContainer.classList.toggle('active');
-    });
+        loginTab.addEventListener('click', () => {
+            loginForm.classList.toggle('active');
+        });
 
-    // Show Login Form
-    document.querySelector('.login-tab').addEventListener('click', () => {
-        document.getElementById('login-form').classList.toggle('active');
-    });
-
-    function submitArticle() {
-        let title = articleTitleInput.value.trim();
-        let content = CKEDITOR.instances['article-content'].getData().trim().replace(/\n/g, "<br>");
-        let imageFile = articleImageInput.files[0];
-        let imageUrl = '';
-        let tags = articleTagsInput.value.trim().split(',').map(tag => tag.trim());
-
-        if (!title || !content) {
-            alert("Please enter both title and content.");
-            return;
-        }
-
-        if (imageFile) {
-            let reader = new FileReader();
-            reader.onload = function (e) {
-                imageUrl = e.target.result;
-                saveArticle(title, content, imageUrl, tags);
-            };
-            reader.readAsDataURL(imageFile);
-        } else {
-            saveArticle(title, content, '', tags);
-        }
-    }
-
-    function saveArticle(title, content, imageUrl, tags) {
-        let articles = JSON.parse(localStorage.getItem('articles')) || [];
-
-        let article = {
-            title: title,
-            content: content,
-            image: imageUrl,
-            tags: tags
-        };
-
-        articles.push(article);
-        localStorage.setItem('articles', JSON.stringify(articles));
-        displayArticles();
-    }
-
-    function displayArticles() {
-        let articles = JSON.parse(localStorage.getItem('articles')) || [];
-        articlePreviewContainer.innerHTML = '';
-
-        if (articles.length === 0) {
-            articlePreviewContainer.innerHTML = `<p class="no-articles">No current articles</p>`;
-            return;
-        }
-
-        articles.forEach((article, index) => {
-            let articleElement = document.createElement('div');
-            articleElement.classList.add('article-preview');
-
-            if (article.image) {
-                articleElement.innerHTML += `<img src="${article.image}" alt="Article Image">`;
+        submitComment.addEventListener('click', () => {
+            const name = document.getElementById('comment-name').value;
+            const text = document.getElementById('comment-text').value;
+            if (name && text) {
+                const commentDiv = document.createElement('div');
+                commentDiv.classList.add('comment');
+                commentDiv.innerHTML = `<h4>${name}</h4><p>${text}</p>`;
+                commentsList.appendChild(commentDiv);
+                document.getElementById('comment-name').value = '';
+                document.getElementById('comment-text').value = '';
+            } else {
+                alert('Please fill in both fields.');
             }
-            
-            // Display title and a snippet of the content
-            let snippet = article.content.length > 100 ? article.content.substring(0, 100) + '...' : article.content;
-            articleElement.innerHTML += `
-                <h3>${article.title}</h3>
-                <p style="white-space: pre-line;">${snippet}</p>
-                <button onclick="editArticle(${index})">Edit</button>
-                <button onclick="deleteArticle(${index})">Delete</button>
-            `;
-
-            // Add click event to show full article
-            articleElement.addEventListener('click', () => {
-                showFullArticle(article, index);
-            });
-
-            articlePreviewContainer.appendChild(articleElement);
         });
-    }
-
-    function showFullArticle(article, index) {
-        document.getElementById('modal-title').innerText = article.title;
-        document.getElementById('modal-content').innerHTML = article.content;
-        document.getElementById('modal-image').src = article.image || '';
-        document.getElementById('comments').innerHTML = ''; // Clear previous comments
-        loadComments(index);
-        document.getElementById('article-modal').style.display = "block";
-    }
-
-    function closeModal() {
-        document.getElementById('article-modal').style.display = "none";
-    }
-
-    function addComment() {
-        let commentInput = document.getElementById('comment-input');
-        let comment = commentInput.value.trim();
-        if (comment) {
-            let articleIndex = Array.from(articlePreviewContainer.children).findIndex(article => article.querySelector('h3').innerText === document.getElementById('modal-title').innerText);
-            let comments = JSON.parse(localStorage.getItem('comments')) || {};
-            comments[articleIndex] = comments[articleIndex] || [];
-            comments[articleIndex].push(comment);
-            localStorage.setItem('comments', JSON.stringify(comments));
-            loadComments(articleIndex);
-            commentInput.value = ''; // Clear input
-        }
-    }
-
-    function loadComments(index) {
-        let comments = JSON.parse(localStorage.getItem('comments')) || {};
-        let commentSection = document.getElementById('comments');
-        commentSection.innerHTML = ''; // Clear previous comments
-        (comments[index] || []).forEach(comment => {
-            let commentDiv = document.createElement('div');
-            commentDiv.classList.add('comment');
-            commentDiv.innerText = comment;
-            commentSection.appendChild(commentDiv);
-        });
-    }
-
-    function editArticle(index) {
-        let articles = JSON.parse(localStorage.getItem('articles')) || [];
-        let article = articles[index];
-        articleTitleInput.value = article.title;
-        CKEDITOR.instances['article-content'].setData(article.content);
-        articleImageInput.value = ''; // Reset image input
-        articleTagsInput.value = article.tags.join(', ');
-        articleForm.classList.add('active');
-        articleForm.dataset.editIndex = index; // Store the index for editing
-    }
-
-    function deleteArticle(index) {
-        let articles = JSON.parse(localStorage.getItem('articles')) || [];
-        articles.splice(index, 1); // Remove the article
-        localStorage.setItem('articles', JSON.stringify(articles));
-        displayArticles(); // Refresh the article list
-    }
-
-    // Initialize CKEditor
-    CKEDITOR.replace('article-content');
-
-    // Close modal when clicking outside of it
-    window.onclick = function(event) {
-        let modal = document.getElementById('article-modal');
-        if (event.target == modal) {
-            closeModal();
-        }
-    };
-
-    function login() {
-        let username = document.getElementById('username').value;
-        let password = document.getElementById('password').value;
-        let users = JSON.parse(localStorage.getItem('users')) || {};
-
-        if (users[username] && users[username] === password) {
-            loggedInUser  = username;
-            alert("Login successful!");
-            document.getElementById('login-form').classList.remove('active');
-        } else {
-            alert("Invalid username or password.");
-        }
-    }
-
-    function register() {
-        let newUsername = document.getElementById('new-username').value;
-        let newPassword = document.getElementById('new-password').value;
-        let users = JSON.parse(localStorage.getItem('users')) || {};
-
-        if (users[newUsername]) {
-            alert("Username already exists.");
-        } else {
-            users[newUsername] = newPassword;
-            localStorage.setItem('users', JSON.stringify(users));
-            alert("Registration successful! You can now log in.");
-            document.getElementById('register-form').style.display = 'none';
-            document.getElementById('login-form').classList.add('active');
-        }
-    }
-
-    function showRegisterForm() {
-        document.getElementById('login-form').style.display = 'none';
-        document.getElementById('register-form').style.display = 'block';
-    }
-
-    function showLoginForm() {
-        document.getElementById('register-form').style.display = 'none';
-        document.getElementById('login-form').style.display = 'block';
-    }
-</script>
+    </script>
 </body>
 </html>
