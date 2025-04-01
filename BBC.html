@@ -138,6 +138,7 @@
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            display: none; /* Initially hidden */
         }
         .regiment-container {
             display: flex;
@@ -234,6 +235,16 @@
             padding: 10px;
             margin: 5px 0;
         }
+        .login-form {
+            display: none;
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .login-form.active {
+            display: block;
+        }
     </style>
 </head>
 <body>
@@ -282,7 +293,7 @@
             </div>
         </div>
 
-        <aside class="sidebar">
+        <aside class="sidebar" id="regiment-sidebar">
             <h2>Regiments</h2>
             <div class="regiment-container" id="regiment-container">
                 <div class="regiment">
@@ -336,6 +347,22 @@
         </div>
     </div>
 
+    <div class="login-form" id="login-form">
+        <h2>Login</h2>
+        <input type="text" id="username" placeholder="Username" required>
+        <input type="password" id="password" placeholder="Password" required>
+        <button onclick="login()">Login</button>
+        <button onclick="showRegisterForm()">Register</button>
+    </div>
+
+    <div class="login-form" id="register-form" style="display: none;">
+        <h2>Register</h2>
+        <input type="text" id="new-username" placeholder="Username" required>
+        <input type="password" id="new-password" placeholder="Password" required>
+        <button onclick="register()">Register</button>
+        <button onclick="showLoginForm()">Back to Login</button>
+    </div>
+
 <script>
     let isArticleActive = false;
     let articleForm = document.getElementById('article-form');
@@ -346,7 +373,9 @@
     let articleTagsInput = document.getElementById('article-tags');
     let regimentTab = document.getElementById('regiment-tab');
     let regimentContainer = document.getElementById('regiment-container');
+    let regimentSidebar = document.getElementById('regiment-sidebar');
     let hasAccess = false; // Track if user has entered the password
+    let loggedInUser  = null; // Track logged-in user
 
     document.querySelector('.home-tab').addEventListener('click', () => {
         window.location.reload();
@@ -368,7 +397,13 @@
 
     // Show Regiments Section
     regimentTab.addEventListener('click', () => {
+        regimentSidebar.style.display = 'block'; // Show the sidebar
         regimentContainer.classList.toggle('active');
+    });
+
+    // Show Login Form
+    document.querySelector('.login-tab').addEventListener('click', () => {
+        document.getElementById('login-form').classList.toggle('active');
     });
 
     function submitArticle() {
@@ -512,6 +547,46 @@
             closeModal();
         }
     };
+
+    function login() {
+        let username = document.getElementById('username').value;
+        let password = document.getElementById('password').value;
+        let users = JSON.parse(localStorage.getItem('users')) || {};
+
+        if (users[username] && users[username] === password) {
+            loggedInUser  = username;
+            alert("Login successful!");
+            document.getElementById('login-form').classList.remove('active');
+        } else {
+            alert("Invalid username or password.");
+        }
+    }
+
+    function register() {
+        let newUsername = document.getElementById('new-username').value;
+        let newPassword = document.getElementById('new-password').value;
+        let users = JSON.parse(localStorage.getItem('users')) || {};
+
+        if (users[newUsername]) {
+            alert("Username already exists.");
+        } else {
+            users[newUsername] = newPassword;
+            localStorage.setItem('users', JSON.stringify(users));
+            alert("Registration successful! You can now log in.");
+            document.getElementById('register-form').style.display = 'none';
+            document.getElementById('login-form').classList.add('active');
+        }
+    }
+
+    function showRegisterForm() {
+        document.getElementById('login-form').style.display = 'none';
+        document.getElementById('register-form').style.display = 'block';
+    }
+
+    function showLoginForm() {
+        document.getElementById('register-form').style.display = 'none';
+        document.getElementById('login-form').style.display = 'block';
+    }
 </script>
 </body>
 </html>
