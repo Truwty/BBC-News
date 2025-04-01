@@ -234,7 +234,7 @@
     <div class="main-container">
         <div class="intro-text">
             <h3>🇬🇧💂——— 𝙱𝚛𝚒𝚝𝚒𝚜𝚑 𝙰𝚛𝚖𝚢 —💂🇬🇧</h3>
-            <p>𝚆𝚎𝚕𝚌𝚘𝚖𝚎 𝚝𝚘 𝙱𝙰! 𝚆𝚎 𝚊𝚛𝚎 𝚊𝚗 𝚊𝚛𝚖𝚢 𝚋𝚞𝚒𝚕𝚝 𝚘𝚗 𝚑𝚒𝚐𝚑 𝚜𝚝𝚊𝚗𝚍𝚊𝚛𝚍𝚜, 𝙿𝚛𝚘𝚏𝚎𝚜𝚜𝚒𝚘𝚗𝚊𝚕𝚒𝚜𝚖 𝚊𝚗𝚍 𝚘𝚟𝚎𝚛𝚊𝚕𝚕 𝚍𝚎𝚍𝚒𝚌𝚊 𝚝𝚒𝚘𝚗 𝚝𝚘 𝚘𝚞𝚛 𝚙𝚛𝚘𝚞𝚍 𝚏𝚕𝚊𝚐 𝚘𝚏 𝚝𝚑𝚎 𝚄𝚗𝚒𝚝𝚎𝚍 𝙺𝚒𝚗𝚐𝚍𝚘𝚖!</p>
+            <p>𝚆𝚎𝚕𝚌𝚘𝚖𝚎 𝚝𝚘 𝙱𝙰! 𝚆𝚎 𝚊𝚛𝚎 𝚊𝚗 𝚊𝚛𝚖𝚢 𝚋𝚞𝚒𝚕𝚝 𝚘𝚗 𝚑𝚒𝚐𝚑 𝚜𝚝𝚊𝚗𝚍𝚊𝚛𝚍𝚜, 𝙿𝚛𝚘𝚏𝚎𝚜𝚜𝚒𝚘𝚗𝚊𝚕𝚒𝚜𝚖 𝚊𝚗𝚍 𝚘𝚟𝚎𝚛𝚊𝚕𝚕 𝚍𝚎𝚍𝚒𝚌𝚊𝚝𝚒𝚘𝚗 𝚝𝚘 𝚘𝚞𝚛 𝚙𝚛𝚘𝚞𝚍 𝚏𝚕𝚊𝚐 𝚘𝚏 𝚝𝚑𝚎 𝚄𝚗𝚒𝚝𝚎𝚍 𝙺𝚒𝚗𝚐𝚍𝚘𝚖!</p>
         </div>
 
         <!-- Links Section -->
@@ -261,6 +261,40 @@
 
         <!-- Regiments Section -->
         <div class="regiment-container" id="regiment-container">
+            <h3>Regiments</h3>
+            <div class="regiment">
+                <img src="https://tr.rbxcdn.com/180DAY-51cb2888d98d2a3a2d492762f033d33c/150/150/Image/Webp/noFilter" alt="Household Cavalry">
+                <p>Household Cavalry</p>
+            </div>
+            <div class="regiment">
+                <img src="https://tr.rbxcdn.com/180DAY-fd5c69fc74ddcdac20730b8d49e0d57d/150/150/Image/Webp/noFilter" alt="First Infantry Forces">
+                <p>First Infantry Forces</p>
+            </div>
+            <div class="regiment">
+                <img src="https://tr.rbxcdn.com/180DAY-520addbf4b5835f27c4a1f6fbf16fa3a/150/150/Image/Webp/noFilter" alt="BBC News">
+                <p>BBC News</p>
+            </div>
+            <div class="regiment">
+                <img src="https://tr.rbxcdn.com/180DAY-32350b3cac8aa69358acdd26a3942f11/150/150/Image/Webp/noFilter" alt="16th Air Assault Brigade">
+                <p>16th Air Assault Brigade</p>
+            </div>
+            <div class="regiment">
+                <img src="https://tr.rbxcdn.com/180DAY-8570f657f95d58335fcea99946120981/150/150/Image/Webp/noFilter" alt="United Kingdom Special Forces">
+                <p>United Kingdom Special Forces</p>
+            </div>
+            <div class="regiment">
+                <img src="https://tr.rbxcdn.com/180DAY-0a83f740afd3199c3ee2feb699aea815/150/150/Image/Webp/noFilter" alt="Royal Grenadier Guards">
+                <p>Royal Grenadier Guards</p>
+            </div>
+            <div class="regiment">
+                <img src="https://tr.rbxcdn.com/180DAY-083d41f047c1a113fb70935c45b11c50/150/150/Image/Webp/noFilter" alt="Royal Military Police">
+                <p>Royal Military Police</p>
+            </div>
+        </div>
+
+        <!-- Regimental Discords Section -->
+        <div class="regiment-container" id="discord-container" style="display: none;">
+            <h3>Regimental Discords</h3>
             <div class="regiment">
                 <img src="https://tr.rbxcdn.com/180DAY-51cb2888d98d2a3a2d492762f033d33c/150/150/Image/Webp/noFilter" alt="Household Cavalry">
                 <p>Household Cavalry - N/A</p>
@@ -303,6 +337,7 @@
     let regimentTab = document.getElementById('regiment-tab');
     let discordTab = document.getElementById('discord-tab');
     let regimentContainer = document.getElementById('regiment-container');
+    let discordContainer = document.getElementById('discord-container'); // New Discord Container
     let hasAccess = false; 
     let loadingIndicator = document.getElementById('loading');
 
@@ -324,12 +359,13 @@
     });
 
     regimentTab.addEventListener('click', () => {
-        regimentContainer.classList.toggle('active');
+        regimentContainer.classList.add('active');
+        discordContainer.style.display = 'none'; // Hide Discords
     });
 
     discordTab.addEventListener('click', () => {
         regimentContainer.classList.remove('active'); 
-        alert("This section will display regimental Discords in the future.");
+        discordContainer.style.display = 'block'; // Show Discords
     });
 
     function submitArticle() {
