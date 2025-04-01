@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SBBC News Portal</title>
-    <script src="https://cdn.ckeditor.com/4.16.2/standard/ckeditor.js"></script>
+    <script src="https://cdn.ckeditor.com/4.20.0/standard/ckeditor.js"></script>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -145,7 +145,7 @@
         }
         /* Article form styling */
         .article-form {
-            background: #f 2f2f2;
+            background: #f2f2f2;
             padding: 20px;
             border-radius: 10px;
             margin-bottom: 40px;
@@ -201,6 +201,15 @@
             color: #333;
             margin-top: 20px;
         }
+        .loading {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 24px;
+            color: #b80000;
+        }
     </style>
 </head>
 <body>
@@ -235,7 +244,7 @@
         </div>
 
         <div class="article-preview-container" id="article-preview-container">
- <p class="no-articles">No current articles</p>
+            <p class="no-articles">No current articles</p>
         </div>
 
         <!-- Regiments Section -->
@@ -269,6 +278,8 @@
                 <a href="https://www.roblox.com/communities/33806898/BA-Royal-Military-Police">Royal Military Police</a>
             </div>
         </div>
+
+        <div class="loading" id="loading">Loading...</div>
     </div>
 
 <script>
@@ -280,6 +291,7 @@
     let regimentTab = document.getElementById('regiment-tab');
     let regimentContainer = document.getElementById('regiment-container');
     let hasAccess = false; // Track if user has entered the password
+    let loadingIndicator = document.getElementById('loading');
 
     document.querySelector('.home-tab').addEventListener('click', () => {
         window.location.reload();
@@ -314,6 +326,8 @@
             return;
         }
 
+        loadingIndicator.style.display = 'block'; // Show loading indicator
+
         if (imageFile) {
             let reader = new FileReader();
             reader.onload = function (e) {
@@ -345,6 +359,7 @@
 
         if (articles.length === 0) {
             articlePreviewContainer.innerHTML = `<p class="no-articles">No current articles</p>`;
+            loadingIndicator.style.display = 'none'; // Hide loading indicator
             return;
         }
 
@@ -364,6 +379,8 @@
 
             articlePreviewContainer.appendChild(articleElement);
         });
+
+        loadingIndicator.style.display = 'none'; // Hide loading indicator
     }
 
     function deleteArticle(index) {
@@ -381,6 +398,7 @@
     // Load saved articles on page load
     window.onload = function () {
         displayArticles();
+        CKEDITOR.replace('article-content'); // Initialize CKEditor
     };
 </script>
 
