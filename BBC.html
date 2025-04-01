@@ -163,7 +163,7 @@
             width: 100%;
         }
         .article-form {
-            background: #fff;
+            background : #fff;
             padding: 20px;
             border-radius: 10px;
             margin-top: 20px;
@@ -248,7 +248,7 @@
                     <p>BBC News provides comprehensive news coverage and is a trusted source of information.</p>
                 </div>
                 <div class="regiment">
-                    <a href="https://www.roblox.com/communities/33810709/BA-16th-Air-Assault-Brigade" target="_blank">
+                    <a href="https://www.roblox.com/communities/33810709/BA-16th-Air-Assault -Brigade" target="_blank">
                         <img src="https://tr.rbxcdn.com/180DAY-32350b3cac8aa69358acdd26a3942f11/150/150/Image/Webp/noFilter" alt="16th Air Assault Brigade Logo">
                         <h4>16th Air Assault Brigade</h4>
                     </a>
@@ -350,8 +350,7 @@
             content.innerHTML = `
                 <div class="article-form">
                     <h2>Write an Article</h2>
-                    <input type="text" id="article-title" placeholder="Article Title" required>
-                    <textarea id="article-content" rows="4" placeholder="Article Content" required></textarea>
+                    <textarea id="article-content" rows="10" placeholder="Write your article here..." required></ textarea>
                     <button onclick="submitArticle()">Submit Article</button>
                 </div>
                 <div class="article-preview-container" id="article-preview-container">
@@ -359,21 +358,19 @@
                     <div class="no-articles">No articles available.</div>
                 </div>
             `;
+            CKEDITOR.replace('article-content'); // Initialize CKEditor
         }
 
         function submitArticle() {
-            const title = document.getElementById('article-title').value;
-            const content = document.getElementById('article-content').value;
-
-            if (!title || !content) {
-                alert("Please fill in both title and content.");
+            const editorData = CKEDITOR.instances['article-content'].getData();
+            if (!editorData) {
+                alert("Please write your article.");
                 return;
             }
 
-            const article = { title, content };
+            const article = { content: editorData };
             articles.push(article);
-            document.getElementById('article-title').value = '';
-            document.getElementById('article-content').value = '';
+            CKEDITOR.instances['article-content'].setData(''); // Clear the editor
             displayArticles();
         }
 
@@ -389,8 +386,7 @@
                 const articleElement = document.createElement('div');
                 articleElement.classList.add('article-preview');
                 articleElement.innerHTML = `
-                    <h3>${article.title}</h3>
-                    <p>${article.content}</p>
+                    <div>${article.content}</div>
                     <button onclick="editArticle(${index})">Edit</button>
                     <button onclick="deleteArticle(${index})">Delete</button>
                 `;
@@ -400,8 +396,7 @@
 
         function editArticle(index) {
             const article = articles[index];
-            document.getElementById('article-title').value = article.title;
-            document.getElementById('article-content').value = article.content;
+            CKEDITOR.instances['article-content'].setData(article.content);
             articles.splice(index, 1); // Remove the article from the array
             displayArticles();
         }
