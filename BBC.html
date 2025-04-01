@@ -59,151 +59,47 @@
         .main-container {
             padding: 40px 20px;
         }
-        .buttons-container {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-        }
-        .button {
-            background: #b80000;
-            color: white;
-            padding: 15px 30px;
-            text-decoration: none;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            font-size: 18px;
-            font-weight: bold;
-            transition: background 0.3s, transform 0.2s;
-        }
-        .button:hover {
-            background: #900000;
-            transform: scale(1.05);
-        }
-        .button img {
-            height: 30px;
-        }
-        .article-form {
-            background: #f2f2f2;
-            padding: 20px;
-            border-radius: 10px;
-            margin-bottom: 40px;
-            display: none;
-        }
-        .article-form.active {
-            display: block;
-        }
-        .article-form input, .article-form textarea {
-            width: 100%;
-            margin-bottom: 15px;
-            padding: 10px;
-            font-size: 16px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-        .article-preview-container {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 20px;
-            margin-top: 40px;
-        }
-        .article-preview {
-            background: #f9f9f9;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            width: 300px;
-        }
-        .article-preview img {
-            width: 100%;
-            height: auto;
-            max-height: 150px;
-            object-fit: cover;
-            margin-bottom: 10px;
-        }
-        .article-preview h3 {
-            color: #b80000;
-            font-size: 20px;
-            margin: 10px 0;
-        }
-        .article-preview p {
-            font-size: 16px;
-            color: #333;
-        }
-        .no-articles {
-            font-size: 20px;
-            color: #333;
-            margin-top: 20px;
-        }
-        .article-timestamp {
-            font-size: 12px;
-            color: #777;
-            margin-top: 5px;
-        }
-        .password-input {
-            display: none;
-            margin: 10px 0;
-        }
-        .password-input.active {
-            display: block;
-        }
-        .password-input input {
-            padding: 10px;
-            font-size: 16px;
-            border-radius: 5px;
-            border: 1px solid #ccc;
-        }
         .regiments-section {
-            display: none;
             padding: 20px;
             background-color: #f2f2f2;
             border-radius: 10px;
             margin-top: 20px;
         }
+        .regiment-wheel {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
         .regiment-card {
-            background: #ffffff;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            margin: 10px;
-            width: 250px;
-            text-align: left;
+            width: 100px;
+            height: 100px;
             cursor: pointer;
             transition: transform 0.3s, box-shadow 0.3s;
         }
-        .regiment-card:hover {
-            transform: scale(1.05);
-            box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
-        }
         .regiment-card img {
             width: 100%;
-            height: auto;
-            border-radius: 10px;
-            margin-bottom: 10px;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
         }
-        .regiment-card h4 {
-            font-size: 18px;
-            color: #b80000;
-            margin-bottom: 10px;
-        }
-        .regiment-card p {
-            font-size: 16px;
-            color: #333;
+        .regiment-card:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
         }
         .regiment-details {
             display: none;
             padding: 20px;
-            text-align: center;
-        }
-        .regiment-details.active {
-            display: block;
+            text-align: left;
+            margin-top: 30px;
+            background: #f2f2f2;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
         .regiment-details img {
-            width: 200px;
-            height: auto;
+            width: 150px;
+            height: 150px;
             margin-bottom: 20px;
         }
         .regiment-details h4 {
@@ -213,6 +109,24 @@
         .regiment-details p {
             font-size: 18px;
             color: #333;
+        }
+        .regiment-details .back-button {
+            background-color: #b80000;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+            display: inline-block;
+            margin-top: 20px;
+            transition: background 0.3s;
+        }
+        .regiment-details .back-button:hover {
+            background-color: #900000;
+        }
+        .hide-regiments {
+            display: none;
         }
     </style>
 </head>
@@ -232,64 +146,30 @@
     </nav>
 
     <div class="main-container">
-        <!-- Password for writing articles -->
-        <div class="password-input" id="password-input">
-            <input type="password" id="password-field" placeholder="Enter password">
-            <button onclick="verifyPassword()">Submit</button>
-        </div>
-
-        <!-- Article Form -->
-        <div class="article-form" id="article-form">
-            <h2>Write an Article</h2>
-            <input type="text" id="article-title" placeholder="Enter Title">
-            <input type="text" id="author-name" placeholder="Enter Your Name">
-            <textarea id="article-content" placeholder="Enter article content here..."></textarea>
-            <input type="file" id="article-image" accept="image/*">
-            <br>
-            <button onclick="submitArticle()">Submit Article</button>
-        </div>
-
-        <!-- Article Preview Container -->
-        <div class="article-preview-container" id="article-preview-container">
-            <p class="no-articles">No current articles</p>
-        </div>
-
         <!-- Regiments Section -->
         <div class="regiments-section" id="regiments-section">
-            <div class="regiment-card" onclick="showRegimentDetails('household-cavalry')">
-                <img src="https://tr.rbxcdn.com/180DAY-51cb2888d98d2a3a2d492762f033d33c/150/150/Image/Webp/noFilter" alt="Household Cavalry">
-                <h4>Household Cavalry</h4>
-                <p>The Household Cavalry is the senior regiment of the British Army and provides ceremonial and security services to the monarchy.</p>
-            </div>
-            <div class="regiment-card" onclick="showRegimentDetails('first-infantry-forces')">
-                <img src="https://tr.rbxcdn.com/180DAY-fd5c69fc74ddcdac20730b8d49e0d57d/150/150/Image/Webp/noFilter" alt="First Infantry Forces">
-                <h4>First Infantry Forces</h4>
-                <p>Formed to defend and protect the United Kingdom through robust infantry forces.</p>
-            </div>
-            <div class="regiment-card" onclick="showRegimentDetails('bbc-news')">
-                <img src="https://tr.rbxcdn.com/180DAY-520addbf4b5835f27c4a1f6fbf16fa3a/150/150/Image/Webp/noFilter" alt="BBC News">
-                <h4>BBC News</h4>
-                <p>Official news network for the British Army's community, bringing you the latest updates and reports.</p>
-            </div>
-            <div class="regiment-card" onclick="showRegimentDetails('16th-air-assault-brigade')">
-                <img src="https://tr.rbxcdn.com/180DAY-32350b3cac8aa69358acdd26a3942f11/150/150/Image/Webp/noFilter" alt="16th Air Assault Brigade">
-                <h4>16th Air Assault Brigade</h4>
-                <p>One of the British Army's most elite airborne brigades, specializing in rapid response and air assault operations.</p>
-            </div>
-            <div class="regiment-card" onclick="showRegimentDetails('united-kingdom-special-forces')">
-                <img src="https://tr.rbxcdn.com/180DAY-8570f657f95d58335fcea99946120981/150/150/Image/Webp/noFilter" alt="United Kingdom Special Forces">
-                <h4>United Kingdom Special Forces</h4>
-                <p>The UK's premier special forces, specializing in counter-terrorism, reconnaissance, and unconventional warfare.</p>
-            </div>
-            <div class="regiment-card" onclick="showRegimentDetails('royal-grenadier-guards')">
-                <img src="https://tr.rbxcdn.com/180DAY-0a83f740afd3199c3ee2feb699aea815/150/150/Image/Webp/noFilter" alt="Royal Grenadier Guards">
-                <h4>Royal Grenadier Guards</h4>
-                <p>One of the oldest and most distinguished regiments of the British Army, known for its ceremonial role.</p>
-            </div>
-            <div class="regiment-card" onclick="showRegimentDetails('royal-military-police')">
-                <img src="https://tr.rbxcdn.com/180DAY-083d41f047c1a113fb70935c45b11c50/150/150/Image/Webp/noFilter" alt="Royal Military Police">
-                <h4>Royal Military Police</h4>
-                <p>The military police of the British Army, responsible for maintaining order and enforcing military law.</p>
+            <div class="regiment-wheel" id="regiment-wheel">
+                <div class="regiment-card" onclick="showRegimentDetails('household-cavalry')">
+                    <img src="https://tr.rbxcdn.com/180DAY-51cb2888d98d2a3a2d492762f033d33c/150/150/Image/Webp/noFilter" alt="Household Cavalry">
+                </div>
+                <div class="regiment-card" onclick="showRegimentDetails('first-infantry-forces')">
+                    <img src="https://tr.rbxcdn.com/180DAY-fd5c69fc74ddcdac20730b8d49e0d57d/150/150/Image/Webp/noFilter" alt="First Infantry Forces">
+                </div>
+                <div class="regiment-card" onclick="showRegimentDetails('bbc-news')">
+                    <img src="https://tr.rbxcdn.com/180DAY-520addbf4b5835f27c4a1f6fbf16fa3a/150/150/Image/Webp/noFilter" alt="BBC News">
+                </div>
+                <div class="regiment-card" onclick="showRegimentDetails('16th-air-assault-brigade')">
+                    <img src="https://tr.rbxcdn.com/180DAY-32350b3cac8aa69358acdd26a3942f11/150/150/Image/Webp/noFilter" alt="16th Air Assault Brigade">
+                </div>
+                <div class="regiment-card" onclick="showRegimentDetails('united-kingdom-special-forces')">
+                    <img src="https://tr.rbxcdn.com/180DAY-8570f657f95d58335fcea99946120981/150/150/Image/Webp/noFilter" alt="United Kingdom Special Forces">
+                </div>
+                <div class="regiment-card" onclick="showRegimentDetails('royal-grenadier-guards')">
+                    <img src="https://tr.rbxcdn.com/180DAY-0a83f740afd3199c3ee2feb699aea815/150/150/Image/Webp/noFilter" alt="Royal Grenadier Guards">
+                </div>
+                <div class="regiment-card" onclick="showRegimentDetails('royal-military-police')">
+                    <img src="https://tr.rbxcdn.com/180DAY-083d41f047c1a113fb70935c45b11c50/150/150/Image/Webp/noFilter" alt="Royal Military Police">
+                </div>
             </div>
         </div>
 
@@ -300,35 +180,34 @@
                 <h4 id="regiment-name"></h4>
                 <p id="regiment-description"></p>
                 <a href="" id="regiment-link" target="_blank">Visit Regiment Page</a>
+                <button class="back-button" onclick="backToRegiments()">Back to Regiments</button>
             </div>
         </div>
     </div>
 
     <script>
-        let regimentTab = document.querySelector('.regiment-tab');
-        let regimentsSection = document.getElementById('regiments-section');
+        let regimentWheel = document.getElementById('regiment-wheel');
         let regimentDetails = document.getElementById('regiment-details');
+        let regimentsSection = document.getElementById('regiments-section');
         let regimentLogo = document.getElementById('regiment-logo');
         let regimentName = document.getElementById('regiment-name');
         let regimentDescription = document.getElementById('regiment-description');
         let regimentLink = document.getElementById('regiment-link');
 
-        regimentTab.addEventListener('click', function() {
-            regimentsSection.style.display = 'block';
-        });
-
-        // Show Regiment Details
         function showRegimentDetails(regiment) {
+            regimentsSection.classList.add('hide-regiments');
+            regimentDetails.style.display = 'block';
+
             if (regiment === 'household-cavalry') {
                 regimentLogo.src = 'https://tr.rbxcdn.com/180DAY-51cb2888d98d2a3a2d492762f033d33c/150/150/Image/Webp/noFilter';
                 regimentName.innerText = 'Household Cavalry';
-                regimentDescription.innerText = 'The Household Cavalry is the senior regiment of the British Army and provides ceremonial and security services to the monarchy.';
+                regimentDescription.innerText = 'The Household Cavalry is the oldest regiment in the British Army and serves both as the ceremonial bodyguard to the Sovereign and as a combat reconnaissance regiment.';
                 regimentLink.href = 'https://www.roblox.com/communities/33685230/The-Hous-hold-Cavalry';
             }
             if (regiment === 'first-infantry-forces') {
                 regimentLogo.src = 'https://tr.rbxcdn.com/180DAY-fd5c69fc74ddcdac20730b8d49e0d57d/150/150/Image/Webp/noFilter';
                 regimentName.innerText = 'First Infantry Forces';
-                regimentDescription.innerText = 'Formed to defend and protect the United Kingdom through robust infantry forces.';
+                regimentDescription.innerText = 'A strong force in the British Army, specializing in infantry combat and operations.';
                 regimentLink.href = 'https://www.roblox.com/communities/35354568/BA-lnfantry-Forces-Division';
             }
             if (regiment === 'bbc-news') {
@@ -361,9 +240,12 @@
                 regimentDescription.innerText = 'The military police of the British Army, responsible for maintaining order and enforcing military law.';
                 regimentLink.href = 'https://www.roblox.com/communities/33806898/BA-Royal-Military-Police';
             }
-            regimentDetails.style.display = 'block';
+        }
+
+        function backToRegiments() {
+            regimentDetails.style.display = 'none';
+            regimentsSection.classList.remove('hide-regiments');
         }
     </script>
-
 </body>
 </html>
