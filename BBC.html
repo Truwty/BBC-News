@@ -82,9 +82,6 @@
             background: #900000;
             transform: scale(1.05);
         }
-        .button img {
-            height: 30px;
-        }
         .intro-text {
             margin-bottom: 40px;
             padding: 20px;
@@ -108,16 +105,21 @@
             font-size: 24px;
             margin-bottom: 20px;
         }
-        .links-container a {
-            display: block;
+        .links-container .link-button {
+            display: inline-block;
             margin: 10px 0;
-            color: #b80000;
-            font-size: 18px;
+            background: #b80000;
+            color: white;
+            padding: 15px 25px;
             text-decoration: none;
-            transition: color 0.3s;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: bold;
+            transition: background 0.3s, transform 0.2s;
         }
-        .links-container a:hover {
-            color: #900000;
+        .links-container .link-button:hover {
+            background: #900000;
+            transform: scale(1.05);
         }
         .regiment-container {
             display: flex;
@@ -258,9 +260,9 @@
         <!-- Links Section -->
         <div class="links-container">
             <h3>Connect with Us</h3>
-            <a href="https://discord.gg/AzVaTUk9tF" target="_blank">Join our Discord</a>
-            <a href="https://www.roblox.com/games/79231464030396/British-Army-Academy#!/game-instances" target="_blank">Play the Main Game</a>
-            <a href="https://www.roblox.com/communities/34500822/KBA-British-Army#!/about" target="_blank">Visit our Main Group</a>
+            <a class="link-button" href="https://discord.gg/AzVaTUk9tF" target="_blank">Join our Discord</a>
+            <a class="link-button" href="https://www.roblox.com/games/79231464030396/British-Army-Academy#!/game-instances" target="_blank">Play the Main Game</a>
+            <a class="link-button" href="https://www.roblox.com/communities/34500822/KBA-British-Army#!/about" target="_blank">Visit our Main Group</a>
         </div>
 
         <!-- Articles Section -->
