@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SBBC News Portal</title>
+    <script src="https://cdn.ckeditor.com/4.16.2/standard/ckeditor.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #ffffff;
+            color: #000;
+            text-align: center;
+            transition: background 0.3s, color 0.3s;
+        }
+        header {
+            background: #b80000;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            font-size: 28px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-bottom: 4px solid white;
+        }
+        header img {
+            height: 50px;
+            margin-right: 15px;
+        }
+        nav {
+            background: white;
+            padding: 15px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        nav ul {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            margin: 0;
+            flex-grow: 1;
+        }
+        nav ul li {
+            display: inline;
+            margin: 0 20px;
+            font-weight: bold;
+            cursor: pointer;
+            padding: 10px 15px;
+            border-radius: 5px;
+            transition: background 0.3s, transform 0.2s;
+        }
+        nav ul li:hover {
+            background: #b80000;
+            color: white;
+            transform: scale(1.1);
+        }
+        /* Dark Mode Toggle Button */
+        .dark-mode-toggle {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            padding: 10px 20px;
+            border-radius: 5px;
+            margin-right: 20px;
+            transition: background 0.3s;
+        }
+        .dark-mode-toggle:hover {
+            background: #ddd;
+        }
+
+        /* Dark Mode Styles */
+        body.dark-mode {
+            background-color: #181818;
+            color: #ffffff;
+        }
+        nav.dark-mode {
+            background: #333;
+            color: white;
+        }
+        .intro-text.dark-mode {
+            background: #222;
+        }
+        .article-form.dark-mode {
+            background: #222;
+            color: white;
+        }
+        .article-preview.dark-mode {
+            background: #333;
+            color: white;
+        }
+        .button.dark-mode {
+            background: #900000;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <img src="https://tr.rbxcdn.com/180DAY-520addbf4b5835f27c4a1f6fbf16fa3a/150/150/Image/Webp/noFilter" alt="BBC Logo">
+        Secret's BBC News
+    </header>
+    
+    <nav id="navbar">
+        <ul>
+            <li class="home-tab">Home</li>
+            <li class="article-tab">Articles</li>
+            <li id="regiment-tab">Regiments</li>
+        </ul>
+        <button class="dark-mode-toggle" id="dark-mode-toggle">🌙 Dark Mode</button>
+    </nav>
+
+    <div class="main-container">
+        <div class="intro-text" id="intro-text">
+            <h3>🇬🇧💂——— 𝙱𝚛𝚒𝚝𝚒𝚜𝚑 𝙰𝚛𝚖𝚢 —💂🇬🇧</h3>
+            <p>𝚆𝚎𝚕𝚌𝚘𝚖𝚎 𝚝𝚘 𝙱𝙰! 𝚆𝚎 𝚊𝚛𝚎 𝚊𝚗 𝚊𝚛𝚖𝚢 𝚋𝚞𝚒𝚕𝚝 𝚘𝚗 𝚑𝚒𝚐𝚑 𝚜𝚝𝚊𝚗𝚍𝚊𝚛𝚍𝚜, 𝙿𝚛𝚘𝚏𝚎𝚜𝚜𝚒𝚘𝚗𝚊𝚕𝚒𝚜𝚖 𝚊𝚗𝚍 𝚘𝚟𝚎𝚛𝚊𝚕𝚕 𝚍𝚎𝚍𝚒𝚌𝚊𝚝𝚒𝚘𝚗 𝚝𝚘 𝚘𝚞𝚛 𝚙𝚛𝚘𝚞𝚍 𝚏𝚕𝚊𝚐 𝚘𝚏 𝚝𝚑𝚎 𝚄𝚗𝚒𝚝𝚎𝚍 𝙺𝚒𝚗𝚐𝚍𝚘𝚖!</p>
+        </div>
+    </div>
+
+<script>
+    let darkModeToggle = document.getElementById("dark-mode-toggle");
+    let body = document.body;
+    let navbar = document.getElementById("navbar");
+    let introText = document.getElementById("intro-text");
+
+    // Check saved dark mode preference
+    if (localStorage.getItem("darkMode") === "enabled") {
+        enableDarkMode();
+    }
+
+    // Toggle dark mode
+    darkModeToggle.addEventListener("click", function () {
+        if (body.classList.contains("dark-mode")) {
+            disableDarkMode();
+        } else {
+            enableDarkMode();
+        }
+    });
+
+    function enableDarkMode() {
+        body.classList.add("dark-mode");
+        navbar.classList.add("dark-mode");
+        introText.classList.add("dark-mode");
+
+        localStorage.setItem("darkMode", "enabled");
+        darkModeToggle.textContent = "☀️ Light Mode";
+    }
+
+    function disableDarkMode() {
+        body.classList.remove("dark-mode");
+        navbar.classList.remove("dark-mode");
+        introText.classList.remove("dark-mode");
+
+        localStorage.setItem("darkMode", "disabled");
+        darkModeToggle.textContent = "🌙 Dark Mode";
+    }
+</script>
+
+</body>
+</html>
