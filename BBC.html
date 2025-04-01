@@ -59,6 +59,32 @@
         .main-container {
             padding: 40px 20px;
         }
+        .buttons-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+        .button {
+            background: #b80000;
+            color: white;
+            padding: 15px 30px;
+            text-decoration: none;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            font-size: 18px;
+            font-weight: bold;
+            transition: background 0.3s, transform 0.2s;
+        }
+        .button:hover {
+            background: #900000;
+            transform: scale(1.05);
+        }
+        .button img {
+            height: 30px;
+        }
         .intro-text {
             margin-bottom: 40px;
             padding: 20px;
@@ -67,18 +93,66 @@
             border-radius: 10px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
-        .article-form {
+        .intro-text h3 {
+            font-size: 28px;
+            font-weight: bold;
+        }
+        .regiment-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 40px;
+            display: none;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+        }
+        .regiment-container.active {
+            display: flex;
+            opacity: 1;
+        }
+        .regiment {
             background: #f2f2f2;
             padding: 20px;
             border-radius: 10px;
-            margin-bottom: 40px;
+            text-align: center;
+            width: 200px;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.5s forwards;
         }
-        .article-form input[type="text"] {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 10px;
-            border: 1px solid #ccc;
+        .regiment img {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
             border-radius: 5px;
+            margin-bottom: 10px;
+        }
+        .regiment a {
+            color: #b80000;
+            font-weight: bold;
+            text-decoration: none;
+            font-size: 16px;
+        }
+        .regiment a:hover {
+            color: #900000;
+        }
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        /* Article form styling */
+        .article-form {
+            background: #f 2f2f2;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 40px;
+            display: none;
+        }
+        .article-form.active {
+            display: block;
         }
         .article-form textarea {
             width: 100%;
@@ -153,18 +227,15 @@
         <!-- Articles Section -->
         <div class="article-form" id="article-form">
             <h2>Write an Article</h2>
-            <input type="text" id="article-title" placeholder="Article Title" required>
             <textarea id="article-content"></textarea>
             <br>
             <input type="file" id="article-image" accept="image/*">
-            <br>
-            <input type="text" id="article-video" placeholder="Video URL (YouTube or other)">
             <br>
             <button onclick="submitArticle()">Submit Article</button>
         </div>
 
         <div class="article-preview-container" id="article-preview-container">
-            <p class="no-articles">No current articles</p>
+ <p class="no-articles">No current articles</p>
         </div>
 
         <!-- Regiments Section -->
@@ -205,9 +276,7 @@
     let articleForm = document.getElementById('article-form');
     let articlePreviewContainer = document.getElementById('article-preview-container');
     let articleContent = document.getElementById('article-content');
-    let articleTitle = document.getElementById('article-title');
     let articleImageInput = document.getElementById('article-image');
-    let articleVideoInput = document.getElementById('article-video');
     let regimentTab = document.getElementById('regiment-tab');
     let regimentContainer = document.getElementById('regiment-container');
     let hasAccess = false; // Track if user has entered the password
@@ -228,7 +297,6 @@
             }
         }
         articleForm.classList.toggle('active');
-        CKEDITOR.replace('article-content'); // Initialize CKEditor
     });
 
     // Show Regiments Section
@@ -237,14 +305,12 @@
     });
 
     function submitArticle() {
-        let title = articleTitle.value.trim();
         let content = articleContent.value.trim().replace(/\n/g, "<br>");
         let imageFile = articleImageInput.files[0];
-        let videoUrl = articleVideoInput.value.trim();
         let imageUrl = '';
 
-        if (!title || !content) {
-            alert("Please enter both title and content.");
+        if (!content) {
+            alert("Please enter article content.");
             return;
         }
 
@@ -252,22 +318,20 @@
             let reader = new FileReader();
             reader.onload = function (e) {
                 imageUrl = e.target.result;
-                saveArticle(title, content, imageUrl, videoUrl);
+                saveArticle(content, imageUrl);
             };
             reader.readAsDataURL(imageFile);
         } else {
-            saveArticle(title, content, '', videoUrl);
+            saveArticle(content, '');
         }
     }
 
-    function saveArticle(title, content, imageUrl, videoUrl) {
+    function saveArticle(content, imageUrl) {
         let articles = JSON.parse(localStorage.getItem('articles')) || [];
 
         let article = {
-            title: title,
             content: content,
-            image: imageUrl,
-            video: videoUrl
+            image: imageUrl
         };
 
         articles.push(article);
@@ -291,17 +355,12 @@
             if (article.image) {
                 articleElement.innerHTML += `<img src="${article.image}" alt="Article Image" style="width: 100%; height: auto; border-radius: 10px; margin-bottom: 10px;">`;
             }
-
+            
             articleElement.innerHTML += `
-                <h3>${article.title}</h3>
+                <h3>Article ${index + 1}</h3>
                 <p style="white-space: pre-line;">${article.content}</p>
+                <button onclick="deleteArticle(${index})">Delete</button>
             `;
-
-            if (article.video) {
-                articleElement.innerHTML += `<iframe width="100%" height="150" src="${article.video}" frameborder="0" allowfullscreen></iframe>`;
-            }
-
-            articleElement.innerHTML += `<button onclick="deleteArticle(${index})">Delete</button>`;
 
             articlePreviewContainer.appendChild(articleElement);
         });
