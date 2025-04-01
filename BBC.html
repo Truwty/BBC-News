@@ -96,6 +96,7 @@
             overflow: hidden;
             transition: transform 0.2s;
             text-align: left; /* Align text to the left */
+            cursor: pointer; /* Change cursor to pointer */
         }
         .article-preview:hover {
             transform: scale(1.05);
@@ -124,7 +125,7 @@
             border-radius: 5px;
             cursor: pointer;
             margin: 10px;
-            transition: background 0.3s;
+ transition: background 0.3s;
         }
         .article-preview button:hover {
             background: #900000;
@@ -189,6 +190,38 @@
             bottom: 0;
             width: 100%;
         }
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 1000; /* Sit on top */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgb(0,0,0); /* Fallback color */
+            background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+            padding-top: 60px; /* Location of the box */
+        }
+        .modal-content {
+            background-color: #fefefe;
+            margin: 5% auto; /* 15% from the top and centered */
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%; /* Could be more or less, depending on screen size */
+        }
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
@@ -210,7 +243,7 @@
         <div class="content">
             <div class="intro-text">
                 <h3>🇬🇧💂——— 𝙱𝚛𝚒𝚝𝚒𝚜𝚑 𝙰𝚛𝚖𝚢 —💂🇬🇧</h3>
-                <p>𝚆𝚎𝚕𝚌𝚘𝚖𝚎 𝚝𝚘 𝙱𝙰! 𝚆𝚎 𝚊𝚛𝚎 𝚊𝚗 𝚊𝚛𝚖𝚢 𝚋𝚞𝚒𝚕𝚝 𝚘𝚗 𝚑𝚒𝚐𝚑 𝚜𝚝𝚊𝚗𝚍𝚊𝚛𝚍𝚜, 𝙿𝚛𝚘𝚏𝚎𝚜𝚜𝚒𝚘𝚗𝚊𝚕𝚒𝚜𝚖 𝚊𝚗𝚍 𝚘𝚟𝚎𝚛𝚊𝚕𝚕 𝚍𝚎𝚍𝚒𝚌𝚊𝚝𝚒𝚘𝚗 𝚝𝚘 𝚘𝚞𝚛 𝚙𝚛𝚘𝚞𝚍 𝚏𝚕𝚊𝚐 𝚘𝚏 𝚝𝚑𝚎 𝚄𝚗𝚒𝚝𝚎𝚍 𝙺𝚒𝚗𝚐𝚍𝚘𝚖!</p>
+                <p>𝚆𝚎𝚕𝚌𝚘 𝚖𝚎 𝚝𝚘 𝙱𝙰! 𝚆𝚎 𝚊𝚛𝚎 𝚊𝚗 𝚊𝚛𝚖𝚢 𝚋𝚞𝚒𝚕𝚝 𝚘𝚗 𝚑𝚒𝚐𝚑 𝚜𝚝𝚊𝚗𝚍𝚊𝚛𝚍𝚜, 𝙿𝚛𝚘𝚏𝚎𝚜𝚜𝚒𝚘𝚗𝚊𝚕𝚒𝚜𝚖 𝚊𝚗𝚍 𝚘𝚟𝚎𝚛𝚊𝚕𝚕 𝚍𝚎𝚍𝚒𝚌𝚊𝚝𝚒𝚘𝚗 𝚝𝚘 𝚘𝚞𝚛 𝚙𝚛𝚘𝚞𝚍 𝚏𝚕𝚊𝚐 𝚘𝚏 𝚝𝚑𝚎 𝚄𝚗𝚒𝚝𝚎𝚍 𝙺𝚒𝚗𝚐𝚍𝚘𝚖!</p>
                 <div class="links">
                     <a href="https://discord.gg/AzVaTUk9tF" target="_blank">Join our Discord</a>
                     <a href="https://www.roblox.com/games/refer?PlaceId=79231464030396&PageType=GroupDetail&LocalTimestamp=%7BlocalTimestamp%7D" target="_blank">Play the Game</a>
@@ -221,6 +254,7 @@
             <!-- Article Writing Form -->
             <div class="article-form" id="article-form">
                 <h2>Write an Article</h2>
+                <input type="text" id="article-title" placeholder="Article Title" required>
                 <textarea id="article-content"></textarea>
                 <br>
                 <input type="file" id="article-image" accept="image/*">
@@ -250,7 +284,7 @@
                 </div>
                 <div class="regiment">
                     <img src="https://tr.rbxcdn.com/180DAY-32350b3cac8aa69358acdd26a3942f11/150/150/Image/Webp/noFilter" alt="16th Air Assault Brigade">
-                    <a href="https://www.roblox.com/communities/33810709/BA-16th-Air-Assault-Brigade">16th Air Assault Brigade</a>
+                    <a href="https://www.roblox.com/communities/33810709/BA-16th -Air-Assault-Brigade">16th Air Assault Brigade</a>
                 </div>
                 <div class="regiment">
                     <img src="https://tr.rbxcdn.com/180DAY-8570f657f95d58335fcea99946120981/150/150/Image/Webp/noFilter" alt="United Kingdom Special Forces">
@@ -272,11 +306,21 @@
         <p>&copy; 2023 SBBC News Portal. All rights reserved.</p>
     </footer>
 
+    <div id="article-modal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2 id="modal-title"></h2>
+            <img id="modal-image" src="" alt="Article Image" style="max-width: 100%; height: auto;">
+            <p id="modal-content"></p>
+        </div>
+    </div>
+
 <script>
     let isArticleActive = false;
     let articleForm = document.getElementById('article-form');
     let articlePreviewContainer = document.getElementById('article-preview-container');
     let articleContent = document.getElementById('article-content');
+    let articleTitleInput = document.getElementById('article-title');
     let articleImageInput = document.getElementById('article-image');
     let regimentTab = document.getElementById('regiment-tab');
     let regimentContainer = document.getElementById('regiment-container');
@@ -306,12 +350,13 @@
     });
 
     function submitArticle() {
+        let title = articleTitleInput.value.trim();
         let content = CKEDITOR.instances['article-content'].getData().trim().replace(/\n/g, "<br>");
         let imageFile = articleImageInput.files[0];
         let imageUrl = '';
 
-        if (!content) {
-            alert("Please enter article content.");
+        if (!title || !content) {
+            alert("Please enter both title and content.");
             return;
         }
 
@@ -319,18 +364,19 @@
             let reader = new FileReader();
             reader.onload = function (e) {
                 imageUrl = e.target.result;
-                saveArticle(content, imageUrl);
+                saveArticle(title, content, imageUrl);
             };
             reader.readAsDataURL(imageFile);
         } else {
-            saveArticle(content, '');
+            saveArticle(title, content, '');
         }
     }
 
-    function saveArticle(content, imageUrl) {
+    function saveArticle(title, content, imageUrl) {
         let articles = JSON.parse(localStorage.getItem('articles')) || [];
 
         let article = {
+            title: title,
             content: content,
             image: imageUrl
         };
@@ -357,26 +403,31 @@
                 articleElement.innerHTML += `<img src="${article.image}" alt="Article Image">`;
             }
             
+            // Display title and a snippet of the content
+            let snippet = article.content.length > 100 ? article.content.substring(0, 100) + '...' : article.content;
             articleElement.innerHTML += `
-                <h3>Article ${index + 1}</h3>
-                <p style="white-space: pre-line;">${article.content.substring(0, 100)}...</p>
-                <button onclick="deleteArticle(${index})">Delete</button>
+                <h3>${article.title}</h3>
+                <p style="white-space: pre-line;">${snippet}</p>
             `;
+
+            // Add click event to show full article
+            articleElement.addEventListener('click', () => {
+                showFullArticle(article);
+            });
 
             articlePreviewContainer.appendChild(articleElement);
         });
     }
 
-    function deleteArticle(index) {
-        let password = prompt("Enter the password to delete this article:");
-        if (password === "BBC") {
-            let articles = JSON.parse(localStorage.getItem('articles')) || [];
-            articles.splice(index, 1);
-            localStorage.setItem('articles', JSON.stringify(articles));
-            displayArticles();
-        } else {
-            alert("Incorrect password. Article not deleted.");
-        }
+    function showFullArticle(article) {
+        document.getElementById('modal-title').innerText = article.title;
+        document.getElementById('modal-content').innerHTML = article.content;
+        document.getElementById('modal-image').src = article.image || '';
+        document.getElementById('article-modal').style.display = "block";
+    }
+
+    function closeModal() {
+        document.getElementById('article-modal').style.display = "none";
     }
 
     // Load saved articles on page load
