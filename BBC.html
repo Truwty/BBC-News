@@ -224,6 +224,16 @@
             text-decoration: none;
             cursor: pointer;
         }
+        .comment-section {
+            margin-top: 20px;
+        }
+        .comment {
+            background: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 10px;
+            margin: 5px 0;
+        }
     </style>
 </head>
 <body>
@@ -238,6 +248,7 @@
             <li class="home-tab">Home</li>
             <li class="article-tab">Articles</li>
             <li id="regiment-tab">Regiments</li>
+            <li class="login-tab">Login</li>
         </ul>
     </nav>
 
@@ -260,6 +271,8 @@
                 <textarea id="article-content"></textarea>
                 <br>
                 <input type="file" id="article-image" accept="image/*">
+                <br>
+                <input type="text" id="article-tags" placeholder="Tags (comma-separated)">
                 <br>
                 <button onclick="submitArticle()">Submit Article</button>
             </div>
@@ -314,6 +327,12 @@
             <h2 id="modal-title"></h2>
             <img id="modal-image" src="" alt="Article Image" style="max-width: 100%; height: auto;">
             <p id="modal-content"></p>
+            <div class="comment-section" id="comment-section">
+                <h3>Comments</h3>
+                <div id="comments"></div>
+                <input type="text" id="comment-input" placeholder="Add a comment">
+                <button onclick="addComment()">Submit Comment</button>
+            </div>
         </div>
     </div>
 
@@ -324,6 +343,7 @@
     let articleContent = document.getElementById('article-content');
     let articleTitleInput = document.getElementById('article-title');
     let articleImageInput = document.getElementById('article-image');
+    let articleTagsInput = document.getElementById('article-tags');
     let regimentTab = document.getElementById('regiment-tab');
     let regimentContainer = document.getElementById('regiment-container');
     let hasAccess = false; // Track if user has entered the password
@@ -356,6 +376,7 @@
         let content = CKEDITOR.instances['article-content'].getData().trim().replace(/\n/g, "<br>");
         let imageFile = articleImageInput.files[0];
         let imageUrl = '';
+        let tags = articleTagsInput.value.trim().split(',').map(tag => tag.trim());
 
         if (!title || !content) {
             alert("Please enter both title and content.");
@@ -366,21 +387,22 @@
             let reader = new FileReader();
             reader.onload = function (e) {
                 imageUrl = e.target.result;
-                saveArticle(title, content, imageUrl);
+                saveArticle(title, content, imageUrl, tags);
             };
             reader.readAsDataURL(imageFile);
         } else {
-            saveArticle(title, content, '');
+            saveArticle(title, content, '', tags);
         }
     }
 
-    function saveArticle(title, content, imageUrl) {
+    function saveArticle(title, content, imageUrl, tags) {
         let articles = JSON.parse(localStorage.getItem('articles')) || [];
 
         let article = {
             title: title,
             content: content,
-            image: imageUrl
+            image: imageUrl,
+            tags: tags
         };
 
         articles.push(article);
@@ -410,21 +432,25 @@
             articleElement.innerHTML += `
                 <h3>${article.title}</h3>
                 <p style="white-space: pre-line;">${snippet}</p>
+                <button onclick="editArticle(${index})">Edit</button>
+                <button onclick="deleteArticle(${index})">Delete</button>
             `;
 
             // Add click event to show full article
             articleElement.addEventListener('click', () => {
-                showFullArticle(article);
+                showFullArticle(article, index);
             });
 
             articlePreviewContainer.appendChild(articleElement);
         });
     }
 
-    function showFullArticle(article) {
+    function showFullArticle(article, index) {
         document.getElementById('modal-title').innerText = article.title;
         document.getElementById('modal-content').innerHTML = article.content;
         document.getElementById('modal-image').src = article.image || '';
+        document.getElementById('comments').innerHTML = ''; // Clear previous comments
+        loadComments(index);
         document.getElementById('article-modal').style.display = "block";
     }
 
@@ -432,12 +458,60 @@
         document.getElementById('article-modal').style.display = "none";
     }
 
-    // Load saved articles on page load
-    window.onload = function () {
-        displayArticles();
-        CKEDITOR.replace('article-content'); // Initialize CKEditor
+    function addComment() {
+        let commentInput = document.getElementById('comment-input');
+        let comment = commentInput.value.trim();
+        if (comment) {
+            let articleIndex = Array.from(articlePreviewContainer.children).findIndex(article => article.querySelector('h3').innerText === document.getElementById('modal-title').innerText);
+            let comments = JSON.parse(localStorage.getItem('comments')) || {};
+            comments[articleIndex] = comments[articleIndex] || [];
+            comments[articleIndex].push(comment);
+            localStorage.setItem('comments', JSON.stringify(comments));
+            loadComments(articleIndex);
+            commentInput.value = ''; // Clear input
+        }
+    }
+
+    function loadComments(index) {
+        let comments = JSON.parse(localStorage.getItem('comments')) || {};
+        let commentSection = document.getElementById('comments');
+        commentSection.innerHTML = ''; // Clear previous comments
+        (comments[index] || []).forEach(comment => {
+            let commentDiv = document.createElement('div');
+            commentDiv.classList.add('comment');
+            commentDiv.innerText = comment;
+            commentSection.appendChild(commentDiv);
+        });
+    }
+
+    function editArticle(index) {
+        let articles = JSON.parse(localStorage.getItem('articles')) || [];
+        let article = articles[index];
+        articleTitleInput.value = article.title;
+        CKEDITOR.instances['article-content'].setData(article.content);
+        articleImageInput.value = ''; // Reset image input
+        articleTagsInput.value = article.tags.join(', ');
+        articleForm.classList.add('active');
+        articleForm.dataset.editIndex = index; // Store the index for editing
+    }
+
+    function deleteArticle(index) {
+        let articles = JSON.parse(localStorage.getItem('articles')) || [];
+        articles.splice(index, 1); // Remove the article
+        localStorage.setItem('articles', JSON.stringify(articles));
+        displayArticles(); // Refresh the article list
+    }
+
+    // Initialize CKEditor
+    CKEDITOR.replace('article-content');
+
+    // Close modal when clicking outside of it
+    window.onclick = function(event) {
+        let modal = document.getElementById('article-modal');
+        if (event.target == modal) {
+            closeModal();
+        }
     };
 </script>
-
 </body>
 </html>
