@@ -1,3 +1,6 @@
+To add the Army's Discord link, the main game link, and the main group link to the main page of your HTML script, you can include them in the `intro-text` section or create a new section for links. Below is an updated version of your script with the links added to the `intro-text` section.
+
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -96,6 +99,18 @@
         .intro-text h3 {
             font-size: 28px;
             font-weight: bold;
+        }
+        .links {
+            margin-top: 20px;
+            font-size: 18px;
+        }
+        .links a {
+            color: #b80000;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+        .links a:hover {
+            color: #900000;
         }
         .regiment-container {
             display: flex;
@@ -222,6 +237,11 @@
         <div class="intro-text">
             <h3>🇬🇧💂——— 𝙱𝚛𝚒𝚝𝚒𝚜𝚑 𝙰𝚛𝚖𝚢 —💂🇬🇧</h3>
             <p>𝚆𝚎𝚕𝚌𝚘𝚖𝚎 𝚝𝚘 𝙱𝙰! 𝚆𝚎 𝚊𝚛𝚎 𝚊𝚗 𝚊𝚛𝚖𝚢 𝚋𝚞𝚒𝚕𝚝 𝚘𝚗 𝚑𝚒𝚐𝚑 𝚜𝚝𝚊𝚗𝚍𝚊𝚛𝚍𝚜, 𝙿𝚛𝚘𝚏𝚎𝚜𝚜𝚒𝚘𝚗𝚊𝚕𝚒𝚜𝚖 𝚊𝚗𝚍 𝚘𝚟𝚎𝚛𝚊𝚕𝚕 𝚍𝚎𝚍𝚒𝚌𝚊𝚝𝚒𝚘𝚗 𝚝𝚘 𝚘𝚞𝚛 𝚙𝚛𝚘𝚞𝚍 𝚏𝚕𝚊𝚐 𝚘𝚏 𝚝𝚑𝚎 𝚄𝚗𝚒𝚝𝚎𝚍 𝙺𝚒𝚗𝚐𝚍𝚘𝚖!</p>
+            <div class="links">
+                <a href="https://discord.gg/AzVaTUk9tF" target="_blank">Join our Discord</a>
+                <a href="https://www.roblox.com/games/refer?PlaceId=79231464030396&PageType=GroupDetail&LocalTimestamp=%7BlocalTimestamp%7D" target="_blank">Play the Game</a>
+                <a href="https://www.roblox.com/communities/34500822/KBA-British-Army#!/about" target="_blank">Visit our Group</a>
+            </div>
         </div>
 
         <!-- Articles Section -->
@@ -383,8 +403,6 @@
         displayArticles();
     };
 </script>
-
-
 
 </body>
 </html>
