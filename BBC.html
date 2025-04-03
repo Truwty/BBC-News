@@ -247,6 +247,7 @@
         <!-- Articles Section -->
         <div class="article-form" id="article-form">
             <h2>Write an Article</h2>
+            <input type="text" id="article-subject" placeholder="Enter article subject" required>
             <textarea id="article-content"></textarea>
             <br>
             <input type="file" id="article-image" accept="image/*">
@@ -328,9 +329,15 @@
     });
 
     function submitArticle() {
+        let subject = document.getElementById('article-subject').value.trim();
         let content = articleContent.value.trim().replace(/\n/g, "<br>");
         let imageFile = articleImageInput.files[0];
         let imageUrl = '';
+
+        if (!subject) {
+            alert("Please enter an article subject.");
+            return;
+        }
 
         if (!content) {
             alert("Please enter article content.");
@@ -343,18 +350,19 @@
             let reader = new FileReader();
             reader.onload = function (e) {
                 imageUrl = e.target.result;
-                saveArticle(content, imageUrl);
+                saveArticle(subject, content, imageUrl);
             };
             reader.readAsDataURL(imageFile);
         } else {
-            saveArticle(content, '');
+            saveArticle(subject, content, '');
         }
     }
 
-    function saveArticle(content, imageUrl) {
+    function saveArticle(subject, content, imageUrl) {
         let articles = JSON.parse(localStorage.getItem('articles')) || [];
 
         let article = {
+            subject: subject,
             content: content,
             image: imageUrl
         };
@@ -383,7 +391,7 @@
             }
             
             articleElement.innerHTML += `
-                <h3>Article ${index + 1}</h3>
+                <h3>${article.subject}</h3>
                 <p style="white-space: pre-line;">${article.content}</p>
                 <button onclick="deleteArticle(${index})">Delete</button>
             `;
@@ -415,5 +423,3 @@
 
 </body>
 </html>
-
-
